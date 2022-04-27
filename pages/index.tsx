@@ -57,7 +57,7 @@ const Home: NextPage = () => {
     const contract = new web3.eth.Contract(abi, lendingPoolAddress)
     
     for (var i = 0; i < ethereumMainnetAssets.length; i += 1){
-      contract.methods.getReserveData(ethereumMainnetAssets[i].address).call().then((response) => {
+      contract.methods.getReserveData(ethereumMainnetAssets[i].address).call().then((response : any) => {
 
         const binaryValue1 = BigInt(response[0].data).toString(2).slice(-32).slice(-15) //bits 16-31
         const binaryValue2 = BigInt(response[0].data).toString(2).slice(-32).slice(0,16) //bits 16-31
