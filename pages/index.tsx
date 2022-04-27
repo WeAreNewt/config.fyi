@@ -19,8 +19,8 @@ const Home: NextPage = () => {
   const [ltvETH, setLtvETH] = useState<Array<Asset>>([]);
   const [liqTheresholdETH, setliqTheresholdETH] = useState<Array<Asset>>([]);
 
-  const infura_url = `https://mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`
-  const web3 = new Web3(infura_url);
+  const alchemy_url = `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`
+  const web3 = new Web3(alchemy_url);
   const abi : AbiItem = require('../abis/abi.json')
   const lendingPoolAddress = '0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9'
 
