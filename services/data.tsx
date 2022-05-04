@@ -30,8 +30,8 @@ const fetchReserves = async () => {
     const reservesArray = reserves.reservesData.map(n => 
       ({
         symbol: n.symbol, 
-        baseLTVasCollateral: n.baseLTVasCollateral, 
-        reserveLiquidationThreshold: n.reserveLiquidationThreshold
+        baseLTVasCollateral: parseInt(n.baseLTVasCollateral)/100 + '%', 
+        reserveLiquidationThreshold: parseInt(n.reserveLiquidationThreshold)/100 + '%'
       }));
     
     return reservesArray

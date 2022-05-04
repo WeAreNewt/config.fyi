@@ -16,15 +16,17 @@ const Home: NextPage = () => {
   // Risk parameters for assets on ethereum mainnet
   const [riskParams, setRiskParams] = useState<Asset[] | undefined>([]);
 
-  const getData = async () => {
-    const result = await dataService.fetchReserves().then(res => res)
-    return result
-  }
   
   useEffect(() => {
     dataService.fetchReserves().then(data => setRiskParams(data))
     
   }, []);
+
+  const listItems = riskParams?.map(n =>
+     <li key = {n.symbol}>
+       {n.symbol + ', '} 
+       {'LTV -> ' + n.baseLTVasCollateral + ' '}
+       {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold}</li>)
   
 
   return (
@@ -36,12 +38,14 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to Configexperiment
-         
         </h1>
 
         <p className={styles.description}>
           Risk parameters from top DeFi protocols
         </p>
+
+        <h1>Aave</h1>
+        <ul>{listItems}</ul>
         
       </main>
 
