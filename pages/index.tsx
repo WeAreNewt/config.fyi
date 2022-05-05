@@ -15,11 +15,15 @@ const Home: NextPage = () => {
 }
   // Risk parameters for assets on ethereum mainnet
   const [riskParams, setRiskParams] = useState<Asset[] | undefined>([]);
-
+  const [riskParamsAvalanche, setRiskParamsAvalanche] = useState<Asset[] | undefined>([]);
+  const [riskParamsPolygon, setRiskParamsPolygon] = useState<Asset[] | undefined>([]);
+  const [riskParamsEthAMM, setRiskParamsEthAMM] = useState<Asset[] | undefined>([]);
   
   useEffect(() => {
     dataService.fetchReserves().then(data => setRiskParams(data))
-    
+    dataService.fetchReservesAvalancheL1().then(data => setRiskParamsAvalanche(data))
+    dataService.fetchReservesPolygonL1().then(data => setRiskParamsPolygon(data))
+    dataService.fetchReservesEthAMM().then(data => setRiskParamsEthAMM(data))
   }, []);
 
   const listItems = riskParams?.map(n =>
@@ -27,6 +31,24 @@ const Home: NextPage = () => {
        {n.symbol + ', '} 
        {'LTV -> ' + n.baseLTVasCollateral + ' '}
        {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold}</li>)
+
+  const listItemsAvalanche = riskParamsAvalanche?.map(n =>
+    <li key = {n.symbol}>
+      {n.symbol + ', '} 
+      {'LTV -> ' + n.baseLTVasCollateral + ' '}
+      {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold}</li>)
+
+  const listItemsPolygon = riskParamsPolygon?.map(n =>
+    <li key = {n.symbol}>
+      {n.symbol + ', '} 
+      {'LTV -> ' + n.baseLTVasCollateral + ' '}
+      {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold}</li>)
+
+  const listItemsEthAMM = riskParamsEthAMM?.map(n =>
+    <li key = {n.symbol}>
+      {n.symbol + ', '} 
+      {'LTV -> ' + n.baseLTVasCollateral + ' '}
+      {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold}</li>)
   
 
   return (
@@ -46,7 +68,16 @@ const Home: NextPage = () => {
 
         <h1>Aave</h1>
         <ul>{listItems}</ul>
+
+        <h1>Avalanche</h1>
+        <ul>{listItemsAvalanche}</ul>
+
+        <h1>Polygon</h1>
+        <ul>{listItemsPolygon}</ul>
         
+        <h1>ETH AMM</h1>
+        <ul>{listItemsEthAMM}</ul>
+
       </main>
 
       <footer className={styles.footer}>
