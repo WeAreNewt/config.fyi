@@ -4,7 +4,10 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react';
 import dataService from '../services/data'
-
+import {
+  ChainId
+} from '@aave/contract-helpers';
+import { marketConfig } from '../utils/marketconfig';
 
 const Home: NextPage = () => {
 
@@ -14,19 +17,20 @@ const Home: NextPage = () => {
     reserveLiquidationThreshold: string
 }
   // Risk parameters for assets on ethereum mainnet
-  const [riskParams, setRiskParams] = useState<Asset[] | undefined>([]);
+  const [riskParamsEthereum, setRiskParamsEthereum] = useState<Asset[] | undefined>([]);
   const [riskParamsAvalanche, setRiskParamsAvalanche] = useState<Asset[] | undefined>([]);
   const [riskParamsPolygon, setRiskParamsPolygon] = useState<Asset[] | undefined>([]);
   const [riskParamsEthAMM, setRiskParamsEthAMM] = useState<Asset[] | undefined>([]);
   
   useEffect(() => {
-    dataService.fetchReserves().then(data => setRiskParams(data))
-    dataService.fetchReservesAvalancheL1().then(data => setRiskParamsAvalanche(data))
-    dataService.fetchReservesPolygonL1().then(data => setRiskParamsPolygon(data))
-    dataService.fetchReservesEthAMM().then(data => setRiskParamsEthAMM(data))
+    dataService.fetchReservesAny(marketConfig.ethereum).then(data => setRiskParamsEthereum(data))
+    dataService.fetchReservesAny(marketConfig.avalanche).then(data => setRiskParamsAvalanche(data))
+    dataService.fetchReservesAny(marketConfig.polygon).then(data => setRiskParamsPolygon(data))
+    dataService.fetchReservesAny(marketConfig.ethamm).then(data => setRiskParamsEthAMM(data))
+    
   }, []);
 
-  const listItems = riskParams?.map(n =>
+  const listItems = riskParamsEthereum?.map(n =>
      <li key = {n.symbol}>
        {n.symbol + ', '} 
        {'LTV -> ' + n.baseLTVasCollateral + ' '}
