@@ -43,5 +43,33 @@ export const marketConfig = {
     LENDING_POOL_ADDRESS_PROVIDER: '0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb',
     UI_POOL_DATA_PROVIDER: '0x64f558d4BFC1c03a8c8B2ff84976fF04c762b51f'
     },
+    avalanchev3: 
+    {
+    chainId: ChainId.avalanche,
+    publicJsonRPCUrl: 'https://api.avax.network/ext/bc/C/rpc',
+    LENDING_POOL_ADDRESS_PROVIDER: '0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb',
+    UI_POOL_DATA_PROVIDER: '0xdBbFaFC45983B4659E368a3025b81f69Ab6E5093'
+    },
+    polygonv3: 
+    {
+    chainId: ChainId.avalanche,
+    publicJsonRPCUrl: 'https://polygon-rpc.com',
+    LENDING_POOL_ADDRESS_PROVIDER: '0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb',
+    UI_POOL_DATA_PROVIDER: '0x8F1AD487C9413d7e81aB5B4E88B024Ae3b5637D0'
+    },
+    harmony: 
+    {
+    chainId: ChainId.harmony,
+    publicJsonRPCUrl: 'https://api.harmony.one',
+    LENDING_POOL_ADDRESS_PROVIDER: '0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb',
+    UI_POOL_DATA_PROVIDER: '0xBC3c351349f6A919A419EE1e57F85f3e07E59dd1'
+    },
+    fantom: 
+    {
+    chainId: ChainId.fantom,
+    publicJsonRPCUrl: 'https://rpc.ftm.tools',
+    LENDING_POOL_ADDRESS_PROVIDER: '0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb',
+    UI_POOL_DATA_PROVIDER: '0x1CCbfeC508da8D5242D5C1b368694Ab0066b39f1'
+    }
   
 }
