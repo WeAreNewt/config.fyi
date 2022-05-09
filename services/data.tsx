@@ -4,23 +4,30 @@ import {
   ChainId,
 } from '@aave/contract-helpers';
 
-const uiPoolDataProviderAddress  = '0x548e95Ce38B8cb1D91FD82A9F094F26295840277';
-const lendingPoolAddressProvider = '0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5';
-
-
 const riskParameters: string[] = []
 
-const fetchReserves = async () => {
+const fetchReservesAny = async (
+  config:{
+    chainId: ChainId,
+    publicJsonRPCUrl: string, 
+    LENDING_POOL_ADDRESS_PROVIDER: string,
+    UI_POOL_DATA_PROVIDER: string, 
+  }
+  ) => {
+
+  const lendingPoolAddressProvider = config.LENDING_POOL_ADDRESS_PROVIDER
+  const chainId = config.chainId
+
   const provider = new ethers.providers.StaticJsonRpcProvider(
-    'https://eth-mainnet.alchemyapi.io/v2/demo',
-    ChainId.mainnet,
+    config.publicJsonRPCUrl,
+    config.chainId,
   );
 
   try {
     const poolDataProviderContract = new UiPoolDataProvider({
-      uiPoolDataProviderAddress: uiPoolDataProviderAddress,
+      uiPoolDataProviderAddress: config.UI_POOL_DATA_PROVIDER,
       provider,
-      chainId: ChainId.mainnet
+      chainId
     });
   
     const reserves = await poolDataProviderContract.getReservesHumanized({
@@ -42,5 +49,5 @@ const fetchReserves = async () => {
 }
 
 export default {
-  fetchReserves: fetchReserves
+  fetchReservesAny: fetchReservesAny
 }
