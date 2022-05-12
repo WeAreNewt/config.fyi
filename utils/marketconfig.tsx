@@ -52,7 +52,7 @@ export const marketConfig = {
     },
     polygonv3: 
     {
-    chainId: ChainId.avalanche,
+    chainId: ChainId.polygon,
     publicJsonRPCUrl: 'https://polygon-rpc.com',
     LENDING_POOL_ADDRESS_PROVIDER: '0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb',
     UI_POOL_DATA_PROVIDER: '0x8F1AD487C9413d7e81aB5B4E88B024Ae3b5637D0'

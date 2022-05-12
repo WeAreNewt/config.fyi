@@ -14,7 +14,16 @@ const Home: NextPage = () => {
   interface Asset {
     symbol: string,
     baseLTVasCollateral: string,
-    reserveLiquidationThreshold: string
+    reserveLiquidationThreshold: string,
+    liqBonus: string,
+    collRatio: string,
+    reserveFactor: string,
+    varBorrowRate: string,
+    stableBorrowRate: string,
+    avgStableBorrowRate: string,
+    optimalUsageRatio: string,
+    canBorrow: string,
+    stableBorrowingEnabled: string
 }
   // Risk parameters for assets on ethereum mainnet
   const [riskParamsEthereum, setRiskParamsEthereum] = useState<Asset[] | undefined>([]);
@@ -27,14 +36,23 @@ const Home: NextPage = () => {
     dataService.fetchReservesAny(marketConfig.avalanche).then(data => setRiskParamsAvalanche(data))
     dataService.fetchReservesAny(marketConfig.polygon).then(data => setRiskParamsPolygon(data))
     dataService.fetchReservesAny(marketConfig.ethamm).then(data => setRiskParamsEthAMM(data))
-    
   }, []);
 
   const listItems = riskParamsEthereum?.map(n =>
      <li key = {n.symbol}>
        {n.symbol + ', '} 
        {'LTV -> ' + n.baseLTVasCollateral + ' '}
-       {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold}</li>)
+       {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold + ' '}
+       {'Liquidation Bonus -> ' + n.liqBonus + ' '}
+       {'Collateralization Ratio -> ' + n.collRatio + ' '}
+       {'Reserve Factor -> ' + n.reserveFactor + ' '}
+       {'Can be borrowed -> ' + n.canBorrow + ' '}
+       {'Variable Borrow Rate -> ' + n.varBorrowRate + ' '}
+       {'Stable Borrow Rate -> ' + n.stableBorrowRate + ' '}
+       {'Avg Stable Borrow Rate -> ' + n.avgStableBorrowRate + ' '}
+       {'Optimal Usage Ratio -> ' + n.optimalUsageRatio + ' '}
+       {'Stable Borrowing Enabled -> ' + n.stableBorrowingEnabled}</li>)
+       
 
   const listItemsAvalanche = riskParamsAvalanche?.map(n =>
     <li key = {n.symbol}>
