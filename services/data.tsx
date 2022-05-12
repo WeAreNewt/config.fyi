@@ -40,7 +40,7 @@ const fetchReservesAny = async (
         baseLTVasCollateral: parseInt(n.baseLTVasCollateral)/100 + '%', 
         reserveLiquidationThreshold: parseInt(n.reserveLiquidationThreshold)/100 + '%',
         liqBonus: parseInt(n.reserveLiquidationBonus.slice(-3))/100 + '%',
-        collRatio: parseInt(n.baseLTVasCollateral) === 0 ? 0 : (1 / (parseInt(n.baseLTVasCollateral)/1000000)).toFixed(2) + '%',
+        collRatio: parseInt(n.baseLTVasCollateral) === 0 ? '0' : (1 / (parseInt(n.baseLTVasCollateral)/1000000)).toFixed(2) + '%',
         reserveFactor: parseInt(n.reserveFactor)/1000 + '%',
         varBorrowRate: 
         ((((1 + ((parseInt(n.variableBorrowRate)/(10**27)) / 31536000)) ** 31536000) - 1 ) * 100).toFixed(2) + '%'
@@ -48,7 +48,9 @@ const fetchReservesAny = async (
         stableBorrowRate:
         ((((1 + ((parseInt(n.stableBorrowRate)/(10**27)) / 31536000)) ** 31536000) - 1 ) * 100).toFixed(2) + '%'
         ,
-        canBorrow: n.borrowingEnabled ? 'True' : 'False'
+        avgStableBorrowRate: ((((1 + ((parseInt(n.averageStableRate)/(10**27)) / 31536000)) ** 31536000) - 1 ) * 100).toFixed(2) + '%' , 
+        canBorrow: n.borrowingEnabled ? 'True' : 'False',
+        stableBorrowingEnabled: n.stableBorrowRateEnabled ? 'True' : 'False'
       }));
     
     return reservesArray

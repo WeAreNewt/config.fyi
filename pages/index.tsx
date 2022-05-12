@@ -47,7 +47,9 @@ const Home: NextPage = () => {
        {'Collateralization Ratio -> ' + n.collRatio + ' '}
        {'Can be borrowed -> ' + n.canBorrow + ' '}
        {'Variable Borrow Rate -> ' + n.varBorrowRate + ' '}
-       {'Stable Borrow Rate -> ' + n.stableBorrowRate}</li>)
+       {'Stable Borrow Rate -> ' + n.stableBorrowRate + ' '}
+       {'Avg Stable Borrow Rate -> ' + n.avgStableBorrowRate + ' '}
+       {'Stable Borrowing Enabled -> ' + n.stableBorrowingEnabled}</li>)
        
 
   const listItemsAvalanche = riskParamsAvalanche?.map(n =>
