@@ -14,7 +14,15 @@ const Home: NextPage = () => {
   interface Asset {
     symbol: string,
     baseLTVasCollateral: string,
-    reserveLiquidationThreshold: string
+    reserveLiquidationThreshold: string,
+    liqBonus: string,
+    collRatio: string,
+    reserveFactor: string,
+    varBorrowRate: string,
+    stableBorrowRate: string,
+    avgStableBorrowRate: string,
+    canBorrow: string,
+    stableBorrowingEnabled: string
 }
   // Risk parameters for assets on ethereum mainnet
   const [riskParamsEthereum, setRiskParamsEthereum] = useState<Asset[] | undefined>([]);
@@ -34,7 +42,13 @@ const Home: NextPage = () => {
      <li key = {n.symbol}>
        {n.symbol + ', '} 
        {'LTV -> ' + n.baseLTVasCollateral + ' '}
-       {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold}</li>)
+       {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold + ' '}
+       {'Liquidation Bonus -> ' + n.liqBonus + ' '}
+       {'Collateralization Ratio -> ' + n.collRatio + ' '}
+       {'Can be borrowed -> ' + n.canBorrow + ' '}
+       {'Variable Borrow Rate -> ' + n.varBorrowRate + ' '}
+       {'Stable Borrow Rate -> ' + n.stableBorrowRate}</li>)
+       
 
   const listItemsAvalanche = riskParamsAvalanche?.map(n =>
     <li key = {n.symbol}>
