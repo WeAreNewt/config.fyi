@@ -21,6 +21,7 @@ const Home: NextPage = () => {
     varBorrowRate: string,
     stableBorrowRate: string,
     avgStableBorrowRate: string,
+    optimalUsageRatio: string,
     canBorrow: string,
     stableBorrowingEnabled: string
 }
@@ -44,10 +45,12 @@ const Home: NextPage = () => {
        {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold + ' '}
        {'Liquidation Bonus -> ' + n.liqBonus + ' '}
        {'Collateralization Ratio -> ' + n.collRatio + ' '}
+       {'Reserve Factor -> ' + n.reserveFactor + ' '}
        {'Can be borrowed -> ' + n.canBorrow + ' '}
        {'Variable Borrow Rate -> ' + n.varBorrowRate + ' '}
        {'Stable Borrow Rate -> ' + n.stableBorrowRate + ' '}
        {'Avg Stable Borrow Rate -> ' + n.avgStableBorrowRate + ' '}
+       {'Optimal Usage Ratio -> ' + n.optimalUsageRatio + ' '}
        {'Stable Borrowing Enabled -> ' + n.stableBorrowingEnabled}</li>)
        
 
