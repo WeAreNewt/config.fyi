@@ -35,7 +35,6 @@ const Home: NextPage = () => {
     dataService.fetchReservesAny(marketConfig.avalanche).then(data => setRiskParamsAvalanche(data))
     dataService.fetchReservesAny(marketConfig.polygon).then(data => setRiskParamsPolygon(data))
     dataService.fetchReservesAny(marketConfig.ethamm).then(data => setRiskParamsEthAMM(data))
-    
   }, []);
 
   const listItems = riskParamsEthereum?.map(n =>
