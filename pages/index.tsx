@@ -8,6 +8,16 @@ import {
   ChainId
 } from '@aave/contract-helpers';
 import { marketConfig } from '../utils/marketconfig';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { Box, Container, FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, Stack } from '@mui/material';
+
+
 
 const Home: NextPage = () => {
 
@@ -25,95 +35,156 @@ const Home: NextPage = () => {
     canBorrow: string,
     stableBorrowingEnabled: string
 }
-  // Risk parameters for assets on ethereum mainnet
+
+
+
+const markets = {
+  v2 : [
+    {
+      name: 'ethereum',
+      config: marketConfig.ethereum
+    },
+    {
+      name: 'eth amm',
+      config: marketConfig.ethamm
+    },
+    {
+      name: 'avalanche',
+      config: marketConfig.avalanche
+    },
+    {
+      name: 'polygon',
+      config: marketConfig.polygon
+    }
+  ],
+  v3 : [
+    {
+      name: 'arbitrum',
+      config: marketConfig.arbitrum
+    },
+    {
+      name: 'avalanche',
+      config: marketConfig.avalanchev3
+    },
+    {
+      name: 'fantom',
+      config: marketConfig.fantom
+    },
+    {
+      name: 'harmony',
+      config: marketConfig.harmony
+    },
+    {
+      name: 'optimism',
+      config: marketConfig.optimism
+    },
+    {
+      name: 'polygon',
+      config: marketConfig.polygonv3
+    }
+  ]
+}
+
+  enum selectedprotocol {
+   v2 = 'v2',
+   v3 = 'v3'
+  }
+
+
   const [riskParamsEthereum, setRiskParamsEthereum] = useState<Asset[] | undefined>([]);
-  const [riskParamsAvalanche, setRiskParamsAvalanche] = useState<Asset[] | undefined>([]);
-  const [riskParamsPolygon, setRiskParamsPolygon] = useState<Asset[] | undefined>([]);
-  const [riskParamsEthAMM, setRiskParamsEthAMM] = useState<Asset[] | undefined>([]);
+  const [ market, setMarket ] = useState<any []>()
+  const [ selectedMarket, setSelectedMarket ] = useState<string>('')
+  const [ protocol, setProtocol ] = useState<string >('')
+  const [ protocolSelected, setProtocolSelected ] = useState<boolean >(false)
+
   
-  useEffect(() => {
-    dataService.fetchReservesAny(marketConfig.ethereum).then(data => setRiskParamsEthereum(data))
-    dataService.fetchReservesAny(marketConfig.avalanche).then(data => setRiskParamsAvalanche(data))
-    dataService.fetchReservesAny(marketConfig.polygon).then(data => setRiskParamsPolygon(data))
-    dataService.fetchReservesAny(marketConfig.ethamm).then(data => setRiskParamsEthAMM(data))
-  }, []);
+  const handleProtocolChange = (event: SelectChangeEvent) => {
+    setProtocol(event.target.value)
+    setProtocolSelected(true)
 
-  const listItems = riskParamsEthereum?.map(n =>
-     <li key = {n.symbol}>
-       {n.symbol + ', '} 
-       {'LTV -> ' + n.baseLTVasCollateral + ' '}
-       {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold + ' '}
-       {'Liquidation Bonus -> ' + n.liqBonus + ' '}
-       {'Collateralization Ratio -> ' + n.collRatio + ' '}
-       {'Reserve Factor -> ' + n.reserveFactor + ' '}
-       {'Can be borrowed -> ' + n.canBorrow + ' '}
-       {'Variable Borrow Rate -> ' + n.varBorrowRate + ' '}
-       {'Stable Borrow Rate -> ' + n.stableBorrowRate + ' '}
-       {'Avg Stable Borrow Rate -> ' + n.avgStableBorrowRate + ' '}
-       {'Optimal Usage Ratio -> ' + n.optimalUsageRatio + ' '}
-       {'Stable Borrowing Enabled -> ' + n.stableBorrowingEnabled}</li>)
-       
+    if(event.target.value === 'v2')setMarket(markets.v2)
+    if(event.target.value === 'v3')setMarket(markets.v3)
+  }
 
-  const listItemsAvalanche = riskParamsAvalanche?.map(n =>
-    <li key = {n.symbol}>
-      {n.symbol + ', '} 
-      {'LTV -> ' + n.baseLTVasCollateral + ' '}
-      {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold}</li>)
+  const handleMarketChange = (event: SelectChangeEvent) => {
+    console.log(event.target.value)
+    const mkt = market?.find(n => n.name === event.target.value)
+    dataService.fetchReservesAny(mkt.config).then(data => setRiskParamsEthereum(data))
 
-  const listItemsPolygon = riskParamsPolygon?.map(n =>
-    <li key = {n.symbol}>
-      {n.symbol + ', '} 
-      {'LTV -> ' + n.baseLTVasCollateral + ' '}
-      {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold}</li>)
+  }
 
-  const listItemsEthAMM = riskParamsEthAMM?.map(n =>
-    <li key = {n.symbol}>
-      {n.symbol + ', '} 
-      {'LTV -> ' + n.baseLTVasCollateral + ' '}
-      {'Liquidation Thereshold -> ' + n.reserveLiquidationThreshold}</li>)
-  
-
+ 
   return (
+    
     <div className={styles.container}>
       <Head>
-        <title>Configexperiment</title>
+        <title>config.fyi</title>
       </Head>
-    
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to Configexperiment
-        </h1>
+        <h3>
+          config.fyi
+        </h3>
+        <Box sx={{ display: 'flex' , margin: 'auto' , width: 500, p: 5, justifyContent: 'flex-start' }}>
+         
+         <FormControl fullWidth size="small">
+           <InputLabel id="demo-simple-select-label">Protocol</InputLabel>
+           <Select sx={{ width: 200 }} value={protocol} onChange={handleProtocolChange}>
+             <MenuItem value='v2'>aave v2</MenuItem>
+             <MenuItem value='v3'>aave v3</MenuItem>
+           </Select>
+         </FormControl>
 
-        <p className={styles.description}>
-          Risk parameters from top DeFi protocols
-        </p>
-
-        <h1>Aave</h1>
-        <ul>{listItems}</ul>
-
-        <h1>Avalanche</h1>
-        <ul>{listItemsAvalanche}</ul>
-
-        <h1>Polygon</h1>
-        <ul>{listItemsPolygon}</ul>
-        
-        <h1>ETH AMM</h1>
-        <ul>{listItemsEthAMM}</ul>
-
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+         <FormControl fullWidth size="small">
+           <InputLabel id="demo-simple-select-label">Market</InputLabel>
+             <Select  sx={{ width: 200 }} value={selectedMarket} disabled={!protocolSelected} onChange={handleMarketChange}>
+               {market?.map((n) => (
+                 <MenuItem key={n.name} value={n.name}>{n.name}</MenuItem>
+               ))}
+             </Select>
+         </FormControl>
+       
+       </Box>
+          <TableContainer  >
+              <Table sx={{ width: 1300, margin: 'auto' , border: '1px dashed grey'  }} size="small" aria-label="a dense table " >
+                <TableHead>
+                  <TableRow>
+                    <TableCell><b>asset</b></TableCell>
+                    <TableCell align="right"><b>LTV</b></TableCell>
+                    <TableCell align="right"><b>liquidation thereshold</b></TableCell>
+                    <TableCell align="right"><b>liquidation bonus</b></TableCell>
+                    <TableCell align="right"><b>reserve factor</b></TableCell>
+                    <TableCell align="right"><b>can borrow?</b></TableCell>
+                    <TableCell align="right"><b>optimal utilization</b></TableCell>
+                    <TableCell align="right"><b>collateralization ratio</b></TableCell>
+                    <TableCell align="right"><b>variable borrow rate</b></TableCell>
+                    <TableCell align="right"><b>can borrow stable?</b></TableCell>
+                    <TableCell align="right"><b>stable borrow rate</b></TableCell>
+                    <TableCell align="right"><b>avg market rate for stable borrow</b></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {riskParamsEthereum?.map((n) => (
+                    <TableRow
+                      key={n.symbol}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">{n.symbol}
+                      </TableCell>
+                      <TableCell align="right">{n.baseLTVasCollateral}</TableCell>
+                      <TableCell align="right">{n.reserveLiquidationThreshold}</TableCell>
+                      <TableCell align="right">{n.liqBonus}</TableCell>
+                      <TableCell align="right">{n.reserveFactor}</TableCell>
+                      <TableCell align="right">{n.canBorrow}</TableCell>
+                      <TableCell align="right">{n.optimalUsageRatio}</TableCell>
+                      <TableCell align="right">{n.collRatio}</TableCell>
+                      <TableCell align="right">{n.varBorrowRate}</TableCell>
+                      <TableCell align="right">{n.stableBorrowingEnabled}</TableCell>
+                      <TableCell align="right">{n.stableBorrowRate}</TableCell>
+                      <TableCell align="right">{n.avgStableBorrowRate}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
     </div>
   )
 }
