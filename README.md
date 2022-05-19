@@ -1,4 +1,4 @@
-A frontend that shows the different parameters of DeFi protocols (Aave Protocol risk parameters to start)
+A frontend that shows the different parameters of DeFi protocols. For now, the UI has AAVE V2 and AAVE V3 parameters for all deployed chains.
 
 ## Getting Started
 
