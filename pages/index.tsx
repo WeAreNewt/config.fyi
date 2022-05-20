@@ -15,9 +15,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Box, Container, FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, Stack } from '@mui/material';
-
-
+import { Box, Container, CssBaseline, FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Switch, Typography } from '@mui/material';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { purple } from '@mui/material/colors';
 
 const Home: NextPage = () => {
 
@@ -85,6 +85,8 @@ const markets = {
   ]
 }
 
+
+
   enum selectedprotocol {
    v2 = 'v2',
    v3 = 'v3'
@@ -96,8 +98,9 @@ const markets = {
   const [ selectedMarket, setSelectedMarket ] = useState<string>('')
   const [ protocol, setProtocol ] = useState<string >('')
   const [ protocolSelected, setProtocolSelected ] = useState<boolean >(false)
+  const [ marketSelected, setMarketSelected ] = useState<boolean >(false)
+  const [ darkMode, setDarkMode ] = useState<boolean>(false)
 
-  
   const handleProtocolChange = (event: SelectChangeEvent) => {
     setProtocol(event.target.value)
     setProtocolSelected(true)
@@ -107,24 +110,44 @@ const markets = {
   }
 
   const handleMarketChange = (event: SelectChangeEvent) => {
+    setMarketSelected(true)
     console.log(event.target.value)
+    setSelectedMarket(event.target.value)
     const mkt = market?.find(n => n.name === event.target.value)
     dataService.fetchReservesAny(mkt.config).then(data => setRiskParamsEthereum(data))
 
   }
-
+  const theme = createTheme({
+    palette: {
+      mode: darkMode ? 'dark' : 'light',
+    },
+    typography: {
+      fontFamily: 'IBM Plex Mono',
+     }
+  });
  
   return (
     
     <div className={styles.container}>
+      <ThemeProvider theme={theme} >
+      <CssBaseline />
       <Head>
+      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;200;300&display=swap" rel="stylesheet">
+      </link>
         <title>config.fyi</title>
       </Head>
-        <h3>
-          config.fyi
-        </h3>
-        <Box sx={{ display: 'flex' , margin: 'auto' , width: 500, p: 5, justifyContent: 'flex-start' }}>
-         
+      <Typography variant="h6">
+      config.fyi
+     </Typography>
+     <Box sx={{ display:"flex" , alignItems:"center", justifyContent:"end" }}>
+     <Typography variant="h6">
+      dark mode
+     </Typography>
+     <Switch  color="default" checked={darkMode} onChange={() => setDarkMode(!darkMode)}></Switch>
+     
+     </Box>
+        
+        <Box sx={{ display: 'flex' , margin: 'auto' , width: 500, p: 5}}>
          <FormControl fullWidth size="small">
            <InputLabel id="demo-simple-select-label">Protocol</InputLabel>
            <Select sx={{ width: 200 }} value={protocol} onChange={handleProtocolChange}>
@@ -154,11 +177,11 @@ const markets = {
                     <TableCell align="right"><b>reserve factor</b></TableCell>
                     <TableCell align="right"><b>can borrow?</b></TableCell>
                     <TableCell align="right"><b>optimal utilization</b></TableCell>
-                    <TableCell align="right"><b>collateralization ratio</b></TableCell>
                     <TableCell align="right"><b>variable borrow rate</b></TableCell>
                     <TableCell align="right"><b>can borrow stable?</b></TableCell>
                     <TableCell align="right"><b>stable borrow rate</b></TableCell>
                     <TableCell align="right"><b>avg market rate for stable borrow</b></TableCell>
+                    <TableCell align="right"></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -175,17 +198,25 @@ const markets = {
                       <TableCell align="right">{n.reserveFactor}</TableCell>
                       <TableCell align="right">{n.canBorrow}</TableCell>
                       <TableCell align="right">{n.optimalUsageRatio}</TableCell>
-                      <TableCell align="right">{n.collRatio}</TableCell>
                       <TableCell align="right">{n.varBorrowRate}</TableCell>
                       <TableCell align="right">{n.stableBorrowingEnabled}</TableCell>
                       <TableCell align="right">{n.stableBorrowRate}</TableCell>
                       <TableCell align="right">{n.avgStableBorrowRate}</TableCell>
+                      <TableCell align="right">more info</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </TableContainer>
+            
+              <Typography variant="h6" sx={{ display:"flex" , alignItems:"center", justifyContent:"center" , p: 8}}>
+                      {!marketSelected ? 'please select protocol and market for table to populate' : ''}
+              </Typography>
+            
+              
+              </ThemeProvider>
     </div>
+   
   )
 }
 
