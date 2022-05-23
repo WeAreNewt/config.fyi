@@ -1,12 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import dataService from '../services/data'
-import {
-  ChainId
-} from '@aave/contract-helpers';
 import { marketConfig } from '../utils/marketconfig';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,84 +10,72 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { Box, Container, CssBaseline, FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Switch, Typography } from '@mui/material';
+import { Box, CssBaseline, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Switch, Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { purple } from '@mui/material/colors';
 
 const Home: NextPage = () => {
-
+  
   interface Asset {
     symbol: string,
     baseLTVasCollateral: string,
     reserveLiquidationThreshold: string,
     liqBonus: string,
-    collRatio: string,
     reserveFactor: string,
     varBorrowRate: string,
     stableBorrowRate: string,
     avgStableBorrowRate: string,
     optimalUsageRatio: string,
     canBorrow: string,
-    stableBorrowingEnabled: string
+    stableBorrowingEnabled: string,
+    assetLink: string
 }
 
-
-
-const markets = {
-  v2 : [
-    {
-      name: 'ethereum',
-      config: marketConfig.ethereum
-    },
-    {
-      name: 'eth amm',
-      config: marketConfig.ethamm
-    },
-    {
-      name: 'avalanche',
-      config: marketConfig.avalanche
-    },
-    {
-      name: 'polygon',
-      config: marketConfig.polygon
-    }
-  ],
-  v3 : [
-    {
-      name: 'arbitrum',
-      config: marketConfig.arbitrum
-    },
-    {
-      name: 'avalanche',
-      config: marketConfig.avalanchev3
-    },
-    {
-      name: 'fantom',
-      config: marketConfig.fantom
-    },
-    {
-      name: 'harmony',
-      config: marketConfig.harmony
-    },
-    {
-      name: 'optimism',
-      config: marketConfig.optimism
-    },
-    {
-      name: 'polygon',
-      config: marketConfig.polygonv3
-    }
-  ]
-}
-
-
-
-  enum selectedprotocol {
-   v2 = 'v2',
-   v3 = 'v3'
+  const markets = {
+    v2 : [
+      {
+        name: 'ethereum',
+        config: marketConfig.ethereum
+      },
+      {
+        name: 'eth amm',
+        config: marketConfig.ethamm
+      },
+      {
+        name: 'avalanche',
+        config: marketConfig.avalanche
+      },
+      {
+        name: 'polygon',
+        config: marketConfig.polygon
+      }
+    ],
+    v3 : [
+      {
+        name: 'arbitrum',
+        config: marketConfig.arbitrum
+      },
+      {
+        name: 'avalanche',
+        config: marketConfig.avalanchev3
+      },
+      {
+        name: 'fantom',
+        config: marketConfig.fantom
+      },
+      {
+        name: 'harmony',
+        config: marketConfig.harmony
+      },
+      {
+        name: 'optimism',
+        config: marketConfig.optimism
+      },
+      {
+        name: 'polygon',
+        config: marketConfig.polygonv3
+      }
+    ]
   }
-
 
   const [riskParamsEthereum, setRiskParamsEthereum] = useState<Asset[] | undefined>([]);
   const [ market, setMarket ] = useState<any []>()
@@ -104,14 +88,13 @@ const markets = {
   const handleProtocolChange = (event: SelectChangeEvent) => {
     setProtocol(event.target.value)
     setProtocolSelected(true)
-
+    
     if(event.target.value === 'v2')setMarket(markets.v2)
     if(event.target.value === 'v3')setMarket(markets.v3)
   }
 
   const handleMarketChange = (event: SelectChangeEvent) => {
     setMarketSelected(true)
-    console.log(event.target.value)
     setSelectedMarket(event.target.value)
     const mkt = market?.find(n => n.name === event.target.value)
     dataService.fetchReservesAny(mkt.config).then(data => setRiskParamsEthereum(data))
@@ -132,8 +115,6 @@ const markets = {
       <ThemeProvider theme={theme} >
       <CssBaseline />
       <Head>
-      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;200;300&display=swap" rel="stylesheet">
-      </link>
         <title>config.fyi</title>
       </Head>
       <Typography variant="h6">
@@ -187,7 +168,7 @@ const markets = {
                 <TableBody>
                   {riskParamsEthereum?.map((n) => (
                     <TableRow
-                      key={n.symbol}
+                      key={riskParamsEthereum.indexOf(n)}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">{n.symbol}
@@ -202,7 +183,7 @@ const markets = {
                       <TableCell align="right">{n.stableBorrowingEnabled}</TableCell>
                       <TableCell align="right">{n.stableBorrowRate}</TableCell>
                       <TableCell align="right">{n.avgStableBorrowRate}</TableCell>
-                      <TableCell align="right">more info</TableCell>
+                      <TableCell align="right"><a href={n.assetLink}><u>more info</u></a></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

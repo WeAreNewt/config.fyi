@@ -6,12 +6,14 @@ import {
 
 const riskParameters: string[] = []
 
+
 const fetchReservesAny = async (
   config:{
     chainId: ChainId,
     publicJsonRPCUrl: string, 
     LENDING_POOL_ADDRESS_PROVIDER: string,
-    UI_POOL_DATA_PROVIDER: string, 
+    UI_POOL_DATA_PROVIDER: string,
+    marketName: string
   }
   ) => {
 
@@ -23,18 +25,18 @@ const fetchReservesAny = async (
     config.publicJsonRPCUrl,
     config.chainId,
   );
-
+  
   try {
     const poolDataProviderContract = new UiPoolDataProvider({
       uiPoolDataProviderAddress: config.UI_POOL_DATA_PROVIDER,
       provider,
       chainId
     });
-  
+    
     const reserves = await poolDataProviderContract.getReservesHumanized({
       lendingPoolAddressProvider,
     });
-    //console.log(reserves)
+   
     const reservesArray = reserves.reservesData.map(n => 
       ({
         symbol: n.symbol, 
@@ -51,7 +53,8 @@ const fetchReservesAny = async (
         avgStableBorrowRate: ((((1 + ((parseInt(n.averageStableRate)/(10**27)) / 31536000)) ** 31536000) - 1 ) * 100).toFixed(2) + '%' , 
         optimalUsageRatio: (parseInt(n.optimalUsageRatio)/(10**27)).toFixed(2),
         canBorrow: n.borrowingEnabled ? 'True' : 'False',
-        stableBorrowingEnabled: n.stableBorrowRateEnabled ? 'True' : 'False'
+        stableBorrowingEnabled: n.stableBorrowRateEnabled ? 'True' : 'False',
+        assetLink: 'https://app.aave.com/reserve-overview/?underlyingAsset=' + n.id.slice(n.id.indexOf('-') + 1, n.id.lastIndexOf('-')) + '&marketName=' + config.marketName
       }));
     
     return reservesArray
