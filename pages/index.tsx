@@ -185,7 +185,7 @@ const Home: NextPage = () => {
                       <TableCell align="right">{n.stableBorrowingEnabled}</TableCell>
                       <TableCell align="right">{n.stableBorrowRate}</TableCell>
                       <TableCell align="right">{n.avgStableBorrowRate}</TableCell>
-                      <TableCell align="right"><a href={n.assetLink} target="_blank" ><u>more info</u></a></TableCell>
+                      <TableCell align="right"><a href={n.assetLink} target="_blank"  rel="noreferrer"  ><u>more info</u></a></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
