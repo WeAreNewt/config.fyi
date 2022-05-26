@@ -117,9 +117,11 @@ const Home: NextPage = () => {
       <Head>
         <title>config.fyi</title>
       </Head>
-      <Typography variant="h6">
+      <Box sx={{p: 1}}>
+      <Typography variant="h6" >
       config.fyi
      </Typography>
+     </Box>
      <Box sx={{ display:"flex" , alignItems:"center", justifyContent:"end" }}>
      <Typography variant="h6">
       dark mode
@@ -183,7 +185,7 @@ const Home: NextPage = () => {
                       <TableCell align="right">{n.stableBorrowingEnabled}</TableCell>
                       <TableCell align="right">{n.stableBorrowRate}</TableCell>
                       <TableCell align="right">{n.avgStableBorrowRate}</TableCell>
-                      <TableCell align="right"><a href={n.assetLink}><u>more info</u></a></TableCell>
+                      <TableCell align="right"><a href={n.assetLink} target="_blank" ><u>more info</u></a></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
