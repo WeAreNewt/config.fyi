@@ -13,21 +13,29 @@ import TableRow from '@mui/material/TableRow';
 import { Box, CssBaseline, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Switch, Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+
 const Home: NextPage = () => {
-  
+
   interface Asset {
     symbol: string,
+    usageAsCollateral: string,
     baseLTVasCollateral: string,
     reserveLiquidationThreshold: string,
     liqBonus: string,
     reserveFactor: string,
     varBorrowRate: string,
     stableBorrowRate: string,
-    avgStableBorrowRate: string,
+    stableRateShare: string,
     optimalUsageRatio: string,
     canBorrow: string,
     stableBorrowingEnabled: string,
-    assetLink: string
+    assetLink: string,
+    debtCeiling: string,
+    supplyCap: string,
+    borrowCap: string,
+    eModeLiquidationBonus: string,
+    eModeLiquidationThereshold: string,
+    eModeLtv: string
 }
 
   const markets = {
@@ -77,16 +85,17 @@ const Home: NextPage = () => {
     ]
   }
 
-  const [riskParamsEthereum, setRiskParamsEthereum] = useState<Asset[] | undefined>([]);
+  const [ riskParamsEthereum, setRiskParamsEthereum ] = useState<Asset[] | undefined>([]);
   const [ market, setMarket ] = useState<any []>()
   const [ selectedMarket, setSelectedMarket ] = useState<string>('')
   const [ protocol, setProtocol ] = useState<string >('')
-  const [ protocolSelected, setProtocolSelected ] = useState<boolean >(false)
-  const [ marketSelected, setMarketSelected ] = useState<boolean >(false)
-  const [ darkMode, setDarkMode ] = useState<boolean>(false)
+  const [ protocolSelected, setProtocolSelected ] = useState<boolean>(false)
+  const [ marketSelected, setMarketSelected ] = useState<boolean>(false)
+  const [ darkMode, setDarkMode ] = useState<boolean>(true)
 
   const handleProtocolChange = (event: SelectChangeEvent) => {
     setProtocol(event.target.value)
+    setRiskParamsEthereum(undefined)
     setProtocolSelected(true)
     
     if(event.target.value === 'v2')setMarket(markets.v2)
@@ -100,6 +109,117 @@ const Home: NextPage = () => {
     dataService.fetchReservesAny(mkt.config).then(data => setRiskParamsEthereum(data))
 
   }
+
+  const Tablev2 = () => {
+    return(
+      <TableContainer  >
+              <Table sx={{ width: 1300, margin: 'auto' , border: '1px dashed grey'  }} size="small" aria-label="a dense table " >
+                <TableHead>
+                  <TableRow>
+                    <TableCell><b>asset</b></TableCell>
+                    <TableCell align="right"><b>can collateral</b></TableCell>
+                    <TableCell align="right"><b>LTV</b></TableCell>
+                    <TableCell align="right"><b>liquidation thereshold</b></TableCell>
+                    <TableCell align="right"><b>liquidation bonus</b></TableCell>
+                    <TableCell align="right"><b>reserve factor</b></TableCell>
+                    <TableCell align="right"><b>can borrow?</b></TableCell>
+                    <TableCell align="right"><b>optimal utilization</b></TableCell>
+                    <TableCell align="right"><b>variable borrow rate</b></TableCell>
+                    <TableCell align="right"><b>can borrow stable?</b></TableCell>
+                    <TableCell align="right"><b>stable borrow rate</b></TableCell>
+                    <TableCell align="right"><b>share of stable rate</b></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {riskParamsEthereum?.map((n) => (
+                    <TableRow
+                      key={riskParamsEthereum.indexOf(n)}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">{n.symbol}
+                      </TableCell>
+                      <TableCell align="right">{n.usageAsCollateral}</TableCell>
+                      <TableCell align="right">{n.baseLTVasCollateral}</TableCell>
+                      <TableCell align="right">{n.reserveLiquidationThreshold}</TableCell>
+                      <TableCell align="right">{n.liqBonus}</TableCell>
+                      <TableCell align="right">{n.reserveFactor}</TableCell>
+                      <TableCell align="right">{n.canBorrow}</TableCell>
+                      <TableCell align="right">{n.optimalUsageRatio}</TableCell>
+                      <TableCell align="right">{n.varBorrowRate}</TableCell>
+                      <TableCell align="right">{n.stableBorrowingEnabled}</TableCell>
+                      <TableCell align="right">{n.stableBorrowRate}</TableCell>
+                      <TableCell align="right">{n.stableRateShare}</TableCell>
+                      <TableCell align="right"><a href={n.assetLink} target="_blank"  rel="noreferrer"  ><u>more info</u></a></TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+    )
+  }
+
+  const Tablev3 = () => {
+    return(
+      <TableContainer  >
+              <Table sx={{ width: 1300, margin: 'auto' , border: '1px dashed grey'  }} size="small" aria-label="a dense table " >
+                <TableHead>
+                  <TableRow>
+                    <TableCell><b>asset</b></TableCell>
+                    <TableCell align="right"><b>can collateral</b></TableCell>
+                    <TableCell align="right"><b>LTV</b></TableCell>
+                    <TableCell align="right"><b>liquidation thereshold</b></TableCell>
+                    <TableCell align="right"><b>liquidation bonus</b></TableCell>
+                    <TableCell align="right"><b>reserve factor</b></TableCell>
+                    <TableCell align="right"><b>can borrow?</b></TableCell>
+                    <TableCell align="right"><b>optimal utilization</b></TableCell>
+                    <TableCell align="right"><b>variable borrow rate</b></TableCell>
+                    <TableCell align="right"><b>can borrow stable?</b></TableCell>
+                    <TableCell align="right"><b>stable borrow rate</b></TableCell>
+                    <TableCell align="right"><b>share of stable rate</b></TableCell>
+                    <TableCell align="right"><b>debt ceiling</b></TableCell>
+                    <TableCell align="right"><b>supply cap</b></TableCell>
+                    <TableCell align="right"><b>borrow cap</b></TableCell>
+                    <TableCell align="right"><b>emode liquidation bonus</b></TableCell>
+                    <TableCell align="right"><b>emode liquidation thereshold</b></TableCell>
+                    <TableCell align="right"><b>emode LTV</b></TableCell>
+                    <TableCell align="right"></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {riskParamsEthereum?.map((n) => (
+                    <TableRow
+                      key={riskParamsEthereum.indexOf(n)}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">{n.symbol}
+                      </TableCell>
+                      <TableCell align="right">{n.usageAsCollateral}</TableCell>
+                      <TableCell align="right">{n.baseLTVasCollateral}</TableCell>
+                      <TableCell align="right">{n.reserveLiquidationThreshold}</TableCell>
+                      <TableCell align="right">{n.liqBonus}</TableCell>
+                      <TableCell align="right">{n.reserveFactor}</TableCell>
+                      <TableCell align="right">{n.canBorrow}</TableCell>
+                      <TableCell align="right">{n.optimalUsageRatio}</TableCell>
+                      <TableCell align="right">{n.varBorrowRate}</TableCell>
+                      <TableCell align="right">{n.stableBorrowingEnabled}</TableCell>
+                      <TableCell align="right">{n.stableBorrowRate}</TableCell>
+                      <TableCell align="right">{n.stableRateShare}</TableCell>
+                      <TableCell align="right">{n.debtCeiling}</TableCell>
+                      <TableCell align="right">{n.supplyCap}</TableCell>
+                      <TableCell align="right">{n.borrowCap}</TableCell>
+                      <TableCell align="right">{n.eModeLiquidationBonus}</TableCell>
+                      <TableCell align="right">{n.eModeLiquidationThereshold}</TableCell>
+                      <TableCell align="right">{n.eModeLtv}</TableCell>
+                      <TableCell align="right"><a href={n.assetLink} target="_blank"  rel="noreferrer"  ><u>more info</u></a></TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+    )
+  }
+
+
   const theme = createTheme({
     palette: {
       mode: darkMode ? 'dark' : 'light',
@@ -118,8 +238,11 @@ const Home: NextPage = () => {
         <title>config.fyi</title>
       </Head>
       <Box sx={{p: 1}}>
+
+
       <Typography variant="h6" >
-      config.fyi
+      config.fyi 
+      <a href='https://github.com/WeAreNewt/config.fyi' target="_blank"  rel="noreferrer"  > - github</a>
      </Typography>
      </Box>
      <Box sx={{ display:"flex" , alignItems:"center", justifyContent:"end" }}>
@@ -133,7 +256,7 @@ const Home: NextPage = () => {
         <Box sx={{ display: 'flex' , margin: 'auto' , width: 500, p: 5}}>
          <FormControl fullWidth size="small">
            <InputLabel id="demo-simple-select-label">Protocol</InputLabel>
-           <Select sx={{ width: 200 }} value={protocol} onChange={handleProtocolChange}>
+           <Select sx={{ width: 200 }} value={protocol} onChange={handleProtocolChange} label='Protocol'>
              <MenuItem value='v2'>aave v2</MenuItem>
              <MenuItem value='v3'>aave v3</MenuItem>
            </Select>
@@ -141,7 +264,7 @@ const Home: NextPage = () => {
 
          <FormControl fullWidth size="small">
            <InputLabel id="demo-simple-select-label">Market</InputLabel>
-             <Select  sx={{ width: 200 }} value={selectedMarket} disabled={!protocolSelected} onChange={handleMarketChange}>
+             <Select  sx={{ width: 200 }} value={selectedMarket} disabled={!protocolSelected} onChange={handleMarketChange} label='Market'>
                {market?.map((n) => (
                  <MenuItem key={n.name} value={n.name}>{n.name}</MenuItem>
                ))}
@@ -149,11 +272,12 @@ const Home: NextPage = () => {
          </FormControl>
        
        </Box>
-          <TableContainer  >
+          {/* <TableContainer  >
               <Table sx={{ width: 1300, margin: 'auto' , border: '1px dashed grey'  }} size="small" aria-label="a dense table " >
                 <TableHead>
                   <TableRow>
                     <TableCell><b>asset</b></TableCell>
+                    <TableCell align="right"><b>can collateral</b></TableCell>
                     <TableCell align="right"><b>LTV</b></TableCell>
                     <TableCell align="right"><b>liquidation thereshold</b></TableCell>
                     <TableCell align="right"><b>liquidation bonus</b></TableCell>
@@ -175,6 +299,7 @@ const Home: NextPage = () => {
                     >
                       <TableCell component="th" scope="row">{n.symbol}
                       </TableCell>
+                      <TableCell align="right">{n.usageAsCollateral}</TableCell>
                       <TableCell align="right">{n.baseLTVasCollateral}</TableCell>
                       <TableCell align="right">{n.reserveLiquidationThreshold}</TableCell>
                       <TableCell align="right">{n.liqBonus}</TableCell>
@@ -190,8 +315,8 @@ const Home: NextPage = () => {
                   ))}
                 </TableBody>
               </Table>
-            </TableContainer>
-            
+            </TableContainer> */}
+              {protocol === 'v3' ? <Tablev3/> : <Tablev2/> }
               <Typography variant="h6" sx={{ display:"flex" , alignItems:"center", justifyContent:"center" , p: 8}}>
                       {!marketSelected ? 'please select protocol and market for table to populate' : ''}
               </Typography>
