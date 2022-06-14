@@ -69,24 +69,24 @@ const Home: NextPage = () => {
 
   interface Asset {
     symbol: string,
-    usageAsCollateral: string,
-    baseLTVasCollateral: string,
-    reserveLiquidationThreshold: string,
+    canCollateral: string,
+    LTV: string,
+    liqThereshold: string,
     liqBonus: string,
     reserveFactor: string,
-    varBorrowRate: string,
-    stableBorrowRate: string,
-    stableRateShare: string,
-    optimalUsageRatio: string,
     canBorrow: string,
-    stableBorrowingEnabled: string,
-    assetLink: string,
+    optimalUtilization: string,
+    varBorrowRate: string,
+    canBorrowStable: string,
+    stableBorrowRate: string,
+    shareOfStableRate: string,
     debtCeiling?: string,
     supplyCap?: string,
     borrowCap?: string,
-    eModeLiquidationBonus?: string,
-    eModeLiquidationThereshold?: string,
     eModeLtv?: string
+    eModeLiquidationThereshold?: string,
+    eModeLiquidationBonus?: string,
+    assetLink: string,
 }
 
   const markets = {
@@ -199,17 +199,17 @@ const Home: NextPage = () => {
               >
                 <TableCell component="th" scope="row">{n.symbol}
                 </TableCell>
-                <TableCell align="center">{n.usageAsCollateral}</TableCell>
-                <TableCell align="center">{n.baseLTVasCollateral}</TableCell>
-                <TableCell align="center">{n.reserveLiquidationThreshold}</TableCell>
+                <TableCell align="center">{n.canCollateral}</TableCell>
+                <TableCell align="center">{n.LTV}</TableCell>
+                <TableCell align="center">{n.liqThereshold}</TableCell>
                 <TableCell align="center">{n.liqBonus}</TableCell>
                 <TableCell align="center">{n.reserveFactor}</TableCell>
                 <TableCell align="center">{n.canBorrow}</TableCell>
-                <TableCell align="center">{n.optimalUsageRatio}</TableCell>
+                <TableCell align="center">{n.optimalUtilization}</TableCell>
                 <TableCell align="center">{n.varBorrowRate}</TableCell>
-                <TableCell align="center">{n.stableBorrowingEnabled}</TableCell>
+                <TableCell align="center">{n.canBorrowStable}</TableCell>
                 <TableCell align="center">{n.stableBorrowRate}</TableCell>
-                <TableCell align="center">{n.stableRateShare}</TableCell>
+                <TableCell align="center">{n.shareOfStableRate}</TableCell>
                 <TableCell align="center"><a href={n.assetLink} target="_blank"  rel="noreferrer"  ><u>more info</u></a></TableCell>
               </TableRow>
             ))}
@@ -256,17 +256,17 @@ const Home: NextPage = () => {
               >
                 <TableCell component="th" scope="row">{n.symbol}
                 </TableCell>
-                <TableCell align="center">{n.usageAsCollateral}</TableCell>
-                <TableCell align="center">{n.baseLTVasCollateral}</TableCell>
-                <TableCell align="center">{n.reserveLiquidationThreshold}</TableCell>
+                <TableCell align="center">{n.canCollateral}</TableCell>
+                <TableCell align="center">{n.LTV}</TableCell>
+                <TableCell align="center">{n.liqThereshold}</TableCell>
                 <TableCell align="center">{n.liqBonus}</TableCell>
                 <TableCell align="center">{n.reserveFactor}</TableCell>
                 <TableCell align="center">{n.canBorrow}</TableCell>
-                <TableCell align="center">{n.optimalUsageRatio}</TableCell>
+                <TableCell align="center">{n.optimalUtilization}</TableCell>
                 <TableCell align="center">{n.varBorrowRate}</TableCell>
-                <TableCell align="center">{n.stableBorrowingEnabled}</TableCell>
+                <TableCell align="center">{n.canBorrowStable}</TableCell>
                 <TableCell align="center">{n.stableBorrowRate}</TableCell>
-                <TableCell align="center">{n.stableRateShare}</TableCell>
+                <TableCell align="center">{n.shareOfStableRate}</TableCell>
                 <TableCell align="center">{n.debtCeiling}</TableCell>
                 <TableCell align="center">{n.supplyCap}</TableCell>
                 <TableCell align="center">{n.borrowCap}</TableCell>
