@@ -14,10 +14,12 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.8.0",
+    "@types/react-csv": "^1.1.2",
     "dayjs": "^1.11.1",
     "next": "12.1.5",
     "react": "18.0.0",
     "react-dom": "18.0.0",
+    "react-papaparse": "^4.0.2",
     "web3": "^1.7.3"
   },
   "devDependencies": {
