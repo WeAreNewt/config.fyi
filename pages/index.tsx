@@ -306,11 +306,10 @@ const Home: NextPage = () => {
         </Typography>
       </Box> 
 
-      <Box sx={{ display:"flex" ,  justifyContent: 'flex-end'}}>
+      <Box sx={{ display:"flex" ,  justifyContent: 'flex-end', mr:6}}>
         <Typography variant="h6"  >
             <a href='https://github.com/WeAreNewt/config.fyi' target="_blank"  rel="noreferrer"  > <u>GitHub</u></a>
-            &nbsp;
-            ↗️
+          
         </Typography>
      
       </Box> 
