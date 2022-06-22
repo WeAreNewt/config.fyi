@@ -294,8 +294,7 @@ const Home: NextPage = () => {
         <title>config.fyi</title>
       </Head>
       
-      <Box sx={{mt: 5, ml: 5, mr: 5, display:"flex"}}>   
-       
+      <Box sx={{mt: 12, ml: 5, mr: 5, display:"flex"}}>   
         <Typography variant="h6" sx={{flexGrow: 1}}  >
           config.fyi
         </Typography>
