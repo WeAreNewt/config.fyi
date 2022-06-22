@@ -16,7 +16,6 @@ import { useCSVDownloader } from 'react-papaparse';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 
-
 const Home: NextPage = () => {
   const [ riskParamsEthereum, setRiskParamsEthereum ] = useState<Asset[] | undefined>([]);
   const [ market, setMarket ] = useState<any []>()
@@ -41,6 +40,7 @@ const Home: NextPage = () => {
   }
 
   const handleMarketChange = (event: SelectChangeEvent) => {
+    console.log(selectedMarket)
     setSelectedMarket('')
     setMarketSelected(true)
     setMarketLoading(true)
@@ -135,10 +135,12 @@ const Home: NextPage = () => {
       }
     ]
   }
-  
-  const DownloadCsv = () => {
+
+    const DownloadCsv = () => {
     return (
-      <Box sx={{p: 1}}>
+      <Box sx={{p: 1, width: protocol === 'v3' ? 1455 : 1315, 
+        margin:'auto', display:'flex', justifyContent: 'flex-end'}}>
+      
       <CSVDownloader
         type={Type.Link}
         filename={'riskparameters'}
@@ -147,7 +149,7 @@ const Home: NextPage = () => {
           delimiter: ';',
         }}
         data={riskParamsEthereum}
-       
+
       >
       <Button color="inherit"  variant="outlined" disabled={!marketSelected} size='small' style={{textTransform: 'none'}} >
         <Typography variant="h6" >
@@ -223,7 +225,7 @@ const Home: NextPage = () => {
 
   const Tablev3 = () => {
     return(
-      <TableContainer sx={{ border: '1px dashed grey', width: 1440, margin: 'auto'}}>
+      <TableContainer sx={{ width: 1440, margin: 'auto', border: '1px dashed grey'}}>
         <Table sx={{tableLayout:'fixed'}} size="small" aria-label="a dense table " >
           <TableHead>
             <TableRow>
@@ -292,34 +294,23 @@ const Home: NextPage = () => {
         <title>config.fyi</title>
       </Head>
       
-      <Box sx={{p: 1, display:"flex", }}>      
-        <Typography variant="h6"  >
+      <Box sx={{mt: 5, ml: 5, mr: 5, display:"flex"}}>   
+       
+        <Typography variant="h6" sx={{flexGrow: 1}}  >
           config.fyi
+        </Typography>
+
+        <Typography variant="h6" >
+        dark mode
+        </Typography>
+        <Switch sx={{mt:-0.6}} color="default" checked={darkMode} onChange={() => setDarkMode(!darkMode)}></Switch> 
+
+        <Typography variant="h6" sx={{ml:2}} >
+            <a href='https://github.com/WeAreNewt/config.fyi' target="_blank"  rel="noreferrer"  > <u>GitHub</u></a>
         </Typography>
       </Box>
       
-      
-      <Box sx={{ display:"flex" ,  justifyContent: 'flex-end'}}>
-        <Typography variant="h6">
-        dark mode
-        <Switch  color="default" checked={darkMode} onChange={() => setDarkMode(!darkMode)}></Switch> 
-        </Typography>
-      </Box> 
-
-      <Box sx={{ display:"flex" ,  justifyContent: 'flex-end', mr:6}}>
-        <Typography variant="h6"  >
-            <a href='https://github.com/WeAreNewt/config.fyi' target="_blank"  rel="noreferrer"  > <u>GitHub</u></a>
-          
-        </Typography>
-     
-      </Box> 
-      
-      <Box sx={{ display:"flex" ,  justifyContent: 'flex-end'}}>
-        <DownloadCsv/>
-      </Box> 
-      
-      <Box sx={{ display: 'flex' , margin: 'auto' , width: 500, p: 5}}>
-    
+      <Box sx={{ display: 'flex' , margin: 'auto' , width: 500, p:4}}>
         <FormControl fullWidth size="small">
           <InputLabel id="demo-simple-select-label">Protocol</InputLabel>
           <Select sx={{ width: 200 }} value={protocol} onChange={handleProtocolChange} label='Protocol'>
@@ -336,8 +327,9 @@ const Home: NextPage = () => {
                
             </Select>
         </FormControl>  
+        
       </Box>
-      
+      <DownloadCsv/>
       
       {protocol === 'v3' ? <Tablev3/> : <Tablev2/>  }
       {marketLoading ?  <ProgressBar/> : ''} 

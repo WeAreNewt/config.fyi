@@ -51,7 +51,7 @@ const fetchReservesAny = async (
         reserves.baseCurrencyData.marketReferenceCurrencyDecimals,
       marketReferencePriceInUsd: reserves.baseCurrencyData.marketReferenceCurrencyPriceInUsd,
     });
-    
+
     const reservesArray = formattedPoolReserves.map(n => 
       protocol === 'v3' ? 
       ({
@@ -60,7 +60,7 @@ const fetchReservesAny = async (
         LTV: parseInt(n.baseLTVasCollateral)/100 + '%', 
         liqThereshold: parseInt(n.reserveLiquidationThreshold)/100 + '%',
         liqBonus: parseInt(n.reserveLiquidationBonus.slice(-3))/100 + '%',
-        reserveFactor: parseInt(n.reserveFactor)/100 + '%',
+        reserveFactor: parseFloat(n.reserveFactor) * 100 +'%' ,
         canBorrow: n.borrowingEnabled ? 'True' : 'False',
         optimalUtilization: ((parseInt(n.optimalUsageRatio)/(10**27)) * 100 ).toFixed(0) + '%',
         varBorrowRate: (parseFloat(n.variableBorrowAPY) * 100).toFixed(2) + '%' ,
@@ -82,7 +82,7 @@ const fetchReservesAny = async (
         LTV: parseInt(n.baseLTVasCollateral)/100 + '%', 
         liqThereshold: parseInt(n.reserveLiquidationThreshold)/100 + '%',
         liqBonus: parseInt(n.reserveLiquidationBonus.slice(-3))/100 + '%',
-        reserveFactor: parseInt(n.reserveFactor)/100 + '%',
+        reserveFactor: parseFloat(n.reserveFactor) * 100 +'%',
         canBorrow: n.borrowingEnabled ? 'True' : 'False',
         optimalUtilization: ((parseInt(n.optimalUsageRatio)/(10**27)) * 100 ).toFixed(0) + '%',
         varBorrowRate: (parseFloat(n.variableBorrowAPY) * 100).toFixed(2) + '%' 
