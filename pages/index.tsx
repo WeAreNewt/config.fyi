@@ -58,6 +58,9 @@ const Home: NextPage = () => {
     
    
   }
+  
+  const themes = useTheme();
+  const matches = useMediaQuery(themes.breakpoints.down('sm'));
 
   const theme = createTheme({
     palette: {
@@ -65,14 +68,11 @@ const Home: NextPage = () => {
     },
     typography: {
       fontFamily: 'IBM Plex Mono',
-      fontSize: 11
+      fontSize: matches ? 9 : 11
      }
   });
 
-  const themes = useTheme();
-  const matches = useMediaQuery(themes.breakpoints.down('sm'));
-
-  console.log(matches)
+ 
 
   interface Asset {
     symbol: string,
@@ -293,17 +293,17 @@ const Home: NextPage = () => {
  
   const Header = () => {
     return (
-      <Box sx={{mt: 5, ml: matches ?  -1 : 5, mr: matches ?  -1 : 5, display:"flex"}}>   
-        <Typography variant="h6" sx={{flexGrow: 1}}  >
+      <Box sx={{mt: matches ? 2.5 : 5, ml: matches ?  0 : 5, mr: matches ?  0 : 5, display:"flex"}}>   
+        <Typography variant="h6"  sx={{flexGrow: 1}}  >
           config.fyi
         </Typography>
 
         <Typography variant="h6" >
         dark mode
         </Typography>
-        <Switch sx={{mt:-0.6}} color="default" checked={darkMode} onChange={() => setDarkMode(!darkMode)}></Switch> 
+        <Switch sx={{mt: matches ? -0.9 : -0.7}} color="default" checked={darkMode} onChange={() => setDarkMode(!darkMode)}></Switch> 
 
-        <Typography variant="h6" sx={{ml:2}} >
+        <Typography variant="h6" sx={{ml: matches ? 2 : 3}} >
             <a href='https://github.com/WeAreNewt/config.fyi' target="_blank"  rel="noreferrer"  > <u>GitHub</u></a>
         </Typography>
       </Box>
