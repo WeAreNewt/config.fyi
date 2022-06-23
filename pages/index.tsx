@@ -11,10 +11,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Box, Button, CssBaseline, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Switch, Typography } from '@mui/material';
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
 import { useCSVDownloader } from 'react-papaparse';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
+import { useMediaQuery } from "@mui/material";
+
 
 const Home: NextPage = () => {
   const [ riskParamsEthereum, setRiskParamsEthereum ] = useState<Asset[] | undefined>([]);
@@ -27,6 +29,8 @@ const Home: NextPage = () => {
   const [ darkMode, setDarkMode ] = useState<boolean>(true)
 
   const { CSVDownloader, Type } = useCSVDownloader()
+  
+  
 
   const handleProtocolChange = (event: SelectChangeEvent) => {
     setProtocol(event.target.value)
@@ -65,7 +69,10 @@ const Home: NextPage = () => {
      }
   });
 
- 
+  const themes = useTheme();
+  const matches = useMediaQuery(themes.breakpoints.down('sm'));
+
+  console.log(matches)
 
   interface Asset {
     symbol: string,
@@ -138,8 +145,8 @@ const Home: NextPage = () => {
 
     const DownloadCsv = () => {
     return (
-      <Box sx={{p: 1, width: protocol === 'v3' ? 1455 : 1315, 
-        margin:'auto', display:'flex', justifyContent: 'flex-end'}}>
+      <Box sx={{ width: protocol === 'v3' ? '90%' : '80%', 
+        margin:'auto', display:'flex', justifyContent: 'flex-end' }}>
       
       <CSVDownloader
         type={Type.Link}
@@ -174,7 +181,7 @@ const Home: NextPage = () => {
   
   const Tablev2 = () => {
     return(
-      <TableContainer sx={{ width: 1300, margin: 'auto' , border: '1px dashed grey' , size: 'small'}} >
+      <TableContainer sx={{ width: matches ? '100%' : '80%', margin: 'auto' , border: '1px dashed grey' , size: 'small', mt: 1}} >
         <Table size="small" aria-label="a dense table " >
           <TableHead>
             <TableRow>
@@ -225,8 +232,8 @@ const Home: NextPage = () => {
 
   const Tablev3 = () => {
     return(
-      <TableContainer sx={{ width: 1440, margin: 'auto', border: '1px dashed grey'}}>
-        <Table sx={{tableLayout:'fixed'}} size="small" aria-label="a dense table " >
+      <TableContainer sx={{ width: matches ? '100%' : '90%', margin: 'auto', border: '1px dashed grey', mt:1}}>
+        <Table  size="small" aria-label="a dense table " >
           <TableHead>
             <TableRow>
               <TableCell align="center"><b>asset</b></TableCell>
@@ -284,17 +291,9 @@ const Home: NextPage = () => {
     )
   }  
  
-  return (
-    
-    <div className={styles.container}>
-      
-      <ThemeProvider theme={theme} >
-      <CssBaseline />
-      <Head>
-        <title>config.fyi</title>
-      </Head>
-      
-      <Box sx={{mt: 12, ml: 5, mr: 5, display:"flex"}}>   
+  const Header = () => {
+    return (
+      <Box sx={{mt: 5, ml: matches ?  -1 : 5, mr: matches ?  -1 : 5, display:"flex"}}>   
         <Typography variant="h6" sx={{flexGrow: 1}}  >
           config.fyi
         </Typography>
@@ -308,37 +307,61 @@ const Home: NextPage = () => {
             <a href='https://github.com/WeAreNewt/config.fyi' target="_blank"  rel="noreferrer"  > <u>GitHub</u></a>
         </Typography>
       </Box>
-      
-      <Box sx={{ display: 'flex' , margin: 'auto' , width: 500, p:4}}>
-        <FormControl fullWidth size="small">
+    )
+  }
+
+  const Dropdown = () => {
+    return(
+      <Box sx={{display: 'flex' , margin: 'auto' , width: matches ? '90%' : 500, p:3}}>
+        <FormControl sx={{ width: 200 , display: 'flex' , margin: 'auto' }}fullWidth size="small">
           <InputLabel id="demo-simple-select-label">Protocol</InputLabel>
-          <Select sx={{ width: 200 }} value={protocol} onChange={handleProtocolChange} label='Protocol'>
+          <Select sx={{ width: '95%', margin: 'auto'}} value={protocol} onChange={handleProtocolChange} label='Protocol'>
             <MenuItem value='v2'>aave v2</MenuItem>
             <MenuItem value='v3'>aave v3</MenuItem>
           </Select>
         </FormControl>
-        <FormControl fullWidth size="small">
+        <FormControl sx={{ width: 200 , display: 'flex' , margin: 'auto' }} fullWidth size="small">
           <InputLabel id="demo-simple-select-label">Market</InputLabel>
-            <Select  sx={{ width: 200 }} value={selectedMarket} disabled={!protocolSelected} onChange={handleMarketChange} label='Market'>
+            <Select  sx={{ width: '95%', margin: 'auto' }} value={selectedMarket} disabled={!protocolSelected} onChange={handleMarketChange} label='Market'>
               {market?.map((n) => (
                 <MenuItem key={n.name} value={n.name}>{n.name}</MenuItem>
               ))}
-               
             </Select>
         </FormControl>  
         
       </Box>
-      <DownloadCsv/>
+    )
+  }
+
+  const Info = () => {
+    return(
+      <Typography align='center' variant="h6" sx={{ display:"flex" , alignItems:"center", justifyContent:"center" , p: 8}}>
+        {!marketSelected ? 'please select protocol and market for table to populate' : ''}
+      </Typography>        
+    )
+  }
+
+  return (
+    
+    <div className={styles.container}>
+      
+      <ThemeProvider theme={theme} >
+      <CssBaseline />
+      <Head>
+        <title>config.fyi</title>
+      </Head>
+      
+      <Header/>
+      
+      <Dropdown/>
+      
+      {!matches && <DownloadCsv/>}
       
       {protocol === 'v3' ? <Tablev3/> : <Tablev2/>  }
       {marketLoading ?  <ProgressBar/> : ''} 
       
-      <Typography variant="h6" sx={{ display:"flex" , alignItems:"center", justifyContent:"center" , p: 8}}>
-        {!marketSelected ? 'please select protocol and market for table to populate' : ''}
-      </Typography>        
+      <Info/>
       
-      
-     
       </ThemeProvider>
     </div>
   )
