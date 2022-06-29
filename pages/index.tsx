@@ -13,10 +13,16 @@ import TableRow from '@mui/material/TableRow';
 import { Box, Button, CssBaseline, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Switch, Typography } from '@mui/material';
 import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
 import { useCSVDownloader } from 'react-papaparse';
-import CircularProgress from '@mui/material/CircularProgress';
-import Backdrop from '@mui/material/Backdrop';
 import { useMediaQuery } from "@mui/material";
+import Loading from '../components/Loading';
 
+// import {
+//   BrowserRouter as Router,
+//   Route,
+//   Link,
+//   useRouteMatch,
+//   useParams
+// } from "react-router-dom";
 
 const Home: NextPage = () => {
   const [ riskParamsEthereum, setRiskParamsEthereum ] = useState<Asset[] | undefined>([]);
@@ -26,6 +32,7 @@ const Home: NextPage = () => {
   const [ protocolSelected, setProtocolSelected ] = useState<boolean>(false)
   const [ marketSelected, setMarketSelected ] = useState<boolean>(false)
   const [ marketLoading, setMarketLoading ] = useState<boolean>(false)
+  const [ missingProtocol, setMissingProtocol ] = useState<boolean>(false)
   const [ darkMode, setDarkMode ] = useState<boolean>(true)
 
   const { CSVDownloader, Type } = useCSVDownloader()
@@ -41,22 +48,29 @@ const Home: NextPage = () => {
     
     if(event.target.value === 'v2')setMarket(markets.v2)
     if(event.target.value === 'v3')setMarket(markets.v3)
+    if(event.target.value === 'univ3')setMarket(markets.univ3)
+    if(event.target.value === 'crvv2')setMarket(markets.crvv2)
+
   }
 
   const handleMarketChange = (event: SelectChangeEvent) => {
-    console.log(selectedMarket)
     setSelectedMarket('')
     setMarketSelected(true)
-    setMarketLoading(true)
     setSelectedMarket(event.target.value)
-    const mkt = market?.find(n => n.name === event.target.value)
-    dataService.fetchReservesAny(mkt.config, protocol).then(data => {
-      
-      setRiskParamsEthereum(data)
-      setMarketLoading(false)
-    })
     
-   
+    if(event.target.value === 'all') setMissingProtocol(true)
+    if(!(event.target.value === 'all')){
+      setMarketLoading(true)
+      console.log('asd')
+      const mkt = market?.find(n => n.name === event.target.value)
+      dataService.fetchReservesAny(mkt.config, protocol).then(data => {
+        console.log('asdasdasd')
+        setRiskParamsEthereum(data)
+        setMarketLoading(false)
+      })
+    }
+  
+
   }
   
   const themes = useTheme();
@@ -140,7 +154,13 @@ const Home: NextPage = () => {
         name: 'polygon',
         config: marketConfig.polygonv3
       }
-    ]
+    ],
+    univ3 : [{
+      name: 'all'
+    }],
+    crvv2 : [{
+      name: 'all'
+    }]
   }
 
     const DownloadCsv = () => {
@@ -167,17 +187,6 @@ const Home: NextPage = () => {
       </Box>
     )
   }
-
-  const ProgressBar = () => {
-    return (
-        <Box sx={{height: 15, p: 5}}>
-          <Backdrop open={marketLoading} exit={true}> 
-          <CircularProgress  sx={{margin: 'auto', display: 'flex', width: '100%'}} color="inherit"/>
-          </Backdrop>
-        </Box>
-    )
-  }
- 
   
   const Tablev2 = () => {
     return(
@@ -318,6 +327,8 @@ const Home: NextPage = () => {
           <Select sx={{ width: '95%', margin: 'auto'}} value={protocol} onChange={handleProtocolChange} label='Protocol'>
             <MenuItem value='v2'>aave v2</MenuItem>
             <MenuItem value='v3'>aave v3</MenuItem>
+            <MenuItem value='univ3'>uniswap v3</MenuItem>
+            <MenuItem value='crvv2'>curve v2</MenuItem>
           </Select>
         </FormControl>
         <FormControl sx={{ width: 200 , display: 'flex' , margin: 'auto' }} fullWidth size="small">
@@ -337,6 +348,8 @@ const Home: NextPage = () => {
     return(
       <Typography align='center' variant="h6" sx={{ display:"flex" , alignItems:"center", justifyContent:"center" , p: 8}}>
         {!marketSelected ? 'please select protocol and market for table to populate' : ''}
+        {missingProtocol ? 'want to see config for another protocol? contribute to the github'  : ''} 
+        
       </Typography>        
     )
   }
@@ -355,13 +368,15 @@ const Home: NextPage = () => {
       
       <Dropdown/>
       
-      {!matches && <DownloadCsv/>}
+      {!matches && <DownloadCsv protocol={protocol} riskParamsEthereum={riskParamsEthereum} marketSelected={marketSelected}/>}
       
       {protocol === 'v3' ? <Tablev3/> : <Tablev2/>  }
-      {marketLoading ?  <ProgressBar/> : ''} 
+      {marketLoading ?  <Loading marketLoading={marketLoading} /> : ''} 
       
       <Info/>
-      
+
+    
+
       </ThemeProvider>
     </div>
   )

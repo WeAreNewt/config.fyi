@@ -42,8 +42,7 @@ const fetchReservesAny = async (
       lendingPoolAddressProvider,
     });
 
-  
-
+   
     const formattedPoolReserves = formatReserves({
       reserves: reserves.reservesData,
       currentTimestamp,
