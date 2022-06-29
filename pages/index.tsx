@@ -4,29 +4,21 @@ import styles from '../styles/Home.module.css'
 import { useState } from 'react';
 import dataService from '../services/data'
 import { marketConfig } from '../utils/marketconfig';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import { Box, Button, CssBaseline, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Switch, Typography } from '@mui/material';
+import { CssBaseline, SelectChangeEvent } from '@mui/material';
 import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
-import { useCSVDownloader } from 'react-papaparse';
 import { useMediaQuery } from "@mui/material";
 import Loading from '../components/Loading';
+import DownloadCsv from '../components/Downloadcsv';
+import Info from '../components/Info';
+import Dropdown from '../components/Dropdown';
+import Header from '../components/Header';
+import Tablev2 from '../components/Tablev2';
+import Tablev3 from '../components/Tablev3';
 
-// import {
-//   BrowserRouter as Router,
-//   Route,
-//   Link,
-//   useRouteMatch,
-//   useParams
-// } from "react-router-dom";
 
 const Home: NextPage = () => {
-  const [ riskParamsEthereum, setRiskParamsEthereum ] = useState<Asset[] | undefined>([]);
-  const [ market, setMarket ] = useState<any []>()
+  const [ riskParams, setRiskParams ] = useState<Asset[] | undefined>([]);
+  const [ market, setMarket ] = useState<any >()
   const [ selectedMarket, setSelectedMarket ] = useState<string>('')
   const [ protocol, setProtocol ] = useState<string >('')
   const [ protocolSelected, setProtocolSelected ] = useState<boolean>(false)
@@ -35,17 +27,15 @@ const Home: NextPage = () => {
   const [ missingProtocol, setMissingProtocol ] = useState<boolean>(false)
   const [ darkMode, setDarkMode ] = useState<boolean>(true)
 
-  const { CSVDownloader, Type } = useCSVDownloader()
-  
-  
 
   const handleProtocolChange = (event: SelectChangeEvent) => {
     setProtocol(event.target.value)
     setSelectedMarket('')
-    setRiskParamsEthereum(undefined)
+    setRiskParams(undefined)
     setProtocolSelected(true)
     setMarketSelected(false)
-    
+    setMissingProtocol(false)
+
     if(event.target.value === 'v2')setMarket(markets.v2)
     if(event.target.value === 'v3')setMarket(markets.v3)
     if(event.target.value === 'univ3')setMarket(markets.univ3)
@@ -59,18 +49,15 @@ const Home: NextPage = () => {
     setSelectedMarket(event.target.value)
     
     if(event.target.value === 'all') setMissingProtocol(true)
+
     if(!(event.target.value === 'all')){
       setMarketLoading(true)
-      console.log('asd')
-      const mkt = market?.find(n => n.name === event.target.value)
+      const mkt = market?.find((n: { name: string; }) => n.name === event.target.value)
       dataService.fetchReservesAny(mkt.config, protocol).then(data => {
-        console.log('asdasdasd')
-        setRiskParamsEthereum(data)
+        setRiskParams(data)
         setMarketLoading(false)
       })
     }
-  
-
   }
   
   const themes = useTheme();
@@ -85,8 +72,6 @@ const Home: NextPage = () => {
       fontSize: matches ? 9 : 11
      }
   });
-
- 
 
   interface Asset {
     symbol: string,
@@ -163,197 +148,6 @@ const Home: NextPage = () => {
     }]
   }
 
-    const DownloadCsv = () => {
-    return (
-      <Box sx={{ width: protocol === 'v3' ? '90%' : '80%', 
-        margin:'auto', display:'flex', justifyContent: 'flex-end' }}>
-      
-      <CSVDownloader
-        type={Type.Link}
-        filename={'riskparameters'}
-        bom={true}
-        config={{
-          delimiter: ';',
-        }}
-        data={riskParamsEthereum}
-
-      >
-      <Button color="inherit"  variant="outlined" disabled={!marketSelected} size='small' style={{textTransform: 'none'}} >
-        <Typography variant="h6" >
-        download csv
-        </Typography>
-      </Button>
-      </CSVDownloader>
-      </Box>
-    )
-  }
-  
-  const Tablev2 = () => {
-    return(
-      <TableContainer sx={{ width: matches ? '100%' : '80%', margin: 'auto' , border: '1px dashed grey' , size: 'small', mt: 1}} >
-        <Table size="small" aria-label="a dense table " >
-          <TableHead>
-            <TableRow>
-              <TableCell align="center"><b>asset</b></TableCell>
-              <TableCell align="center"><b>can collateral</b></TableCell>
-              <TableCell align="center"><b>LTV</b></TableCell>
-              <TableCell align="center"><b>liquidation thereshold</b></TableCell>
-              <TableCell align="center"><b>liquidation bonus</b></TableCell>
-              <TableCell align="center"><b>reserve factor</b></TableCell>
-              <TableCell align="center"><b>can borrow?</b></TableCell>
-              <TableCell align="center"><b>optimal utilization</b></TableCell>
-              <TableCell align="center"><b>variable borrow rate</b></TableCell>
-              <TableCell align="center"><b>can borrow stable?</b></TableCell>
-              <TableCell align="center"><b>stable borrow rate</b></TableCell>
-              <TableCell align="center"><b>share of stable rate</b></TableCell>
-              <TableCell align="center"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {riskParamsEthereum?.map((n) => (
-              <TableRow
-                key={riskParamsEthereum.indexOf(n)}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">{n.symbol}
-                </TableCell>
-                <TableCell align="center">{n.canCollateral}</TableCell>
-                <TableCell align="center">{n.LTV}</TableCell>
-                <TableCell align="center">{n.liqThereshold}</TableCell>
-                <TableCell align="center">{n.liqBonus}</TableCell>
-                <TableCell align="center">{n.reserveFactor}</TableCell>
-                <TableCell align="center">{n.canBorrow}</TableCell>
-                <TableCell align="center">{n.optimalUtilization}</TableCell>
-                <TableCell align="center">{n.varBorrowRate}</TableCell>
-                <TableCell align="center">{n.canBorrowStable}</TableCell>
-                <TableCell align="center">{n.stableBorrowRate}</TableCell>
-                <TableCell align="center">{n.shareOfStableRate}</TableCell>
-                <TableCell align="center"><a href={n.assetLink} target="_blank"  rel="noreferrer"  ><u>more info</u></a></TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    )
-  }
-
-
-
-  const Tablev3 = () => {
-    return(
-      <TableContainer sx={{ width: matches ? '100%' : '90%', margin: 'auto', border: '1px dashed grey', mt:1}}>
-        <Table  size="small" aria-label="a dense table " >
-          <TableHead>
-            <TableRow>
-              <TableCell align="center"><b>asset</b></TableCell>
-              <TableCell align="center"><b>can collateral</b></TableCell>
-              <TableCell align="center"><b>LTV</b></TableCell>
-              <TableCell align="center"><b>liq thereshold</b></TableCell>
-              <TableCell align="center"><b>liq bonus</b></TableCell>
-              <TableCell align="center"><b>reserve factor</b></TableCell>
-              <TableCell align="center"><b>can borrow?</b></TableCell>
-              <TableCell align="center"><b>optimal utilization</b></TableCell>
-              <TableCell align="center"><b>variable borrow rate</b></TableCell>
-              <TableCell align="center"><b>can borrow stable?</b></TableCell>
-              <TableCell align="center"><b>stable borrow rate</b></TableCell>
-              <TableCell align="center"><b>share of stable rate</b></TableCell>
-              <TableCell align="center"><b>debt ceiling</b></TableCell>
-              <TableCell align="center"><b>supply cap</b></TableCell>
-              <TableCell align="center"><b>borrow cap</b></TableCell>
-              <TableCell align="center"><b>emode LTV</b></TableCell>
-              <TableCell align="center"><b>emode liq thereshold</b></TableCell>
-              <TableCell align="center"><b>emode liq bonus</b></TableCell>
-              <TableCell align="center"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {riskParamsEthereum?.map((n) => (
-              <TableRow
-                key={riskParamsEthereum.indexOf(n)}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">{n.symbol}
-                </TableCell>
-                <TableCell align="center">{n.canCollateral}</TableCell>
-                <TableCell align="center">{n.LTV}</TableCell>
-                <TableCell align="center">{n.liqThereshold}</TableCell>
-                <TableCell align="center">{n.liqBonus}</TableCell>
-                <TableCell align="center">{n.reserveFactor}</TableCell>
-                <TableCell align="center">{n.canBorrow}</TableCell>
-                <TableCell align="center">{n.optimalUtilization}</TableCell>
-                <TableCell align="center">{n.varBorrowRate}</TableCell>
-                <TableCell align="center">{n.canBorrowStable}</TableCell>
-                <TableCell align="center">{n.stableBorrowRate}</TableCell>
-                <TableCell align="center">{n.shareOfStableRate}</TableCell>
-                <TableCell align="center">{n.debtCeiling}</TableCell>
-                <TableCell align="center">{n.supplyCap}</TableCell>
-                <TableCell align="center">{n.borrowCap}</TableCell>
-                <TableCell align="center">{n.eModeLtv}</TableCell>
-                <TableCell align="center">{n.eModeLiquidationThereshold}</TableCell>
-                <TableCell align="center">{n.eModeLiquidationBonus}</TableCell>
-                <TableCell align="center"><a href={n.assetLink} target="_blank"  rel="noreferrer"  ><u>more info</u></a></TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        </TableContainer>
-    )
-  }  
- 
-  const Header = () => {
-    return (
-      <Box sx={{mt: matches ? 2.5 : 5, ml: matches ?  0 : 5, mr: matches ?  0 : 5, display:"flex"}}>   
-        <Typography variant="h6"  sx={{flexGrow: 1}}  >
-          config.fyi
-        </Typography>
-
-        <Typography variant="h6" >
-        dark mode
-        </Typography>
-        <Switch sx={{mt: matches ? -0.9 : -0.7}} color="default" checked={darkMode} onChange={() => setDarkMode(!darkMode)}></Switch> 
-
-        <Typography variant="h6" sx={{ml: matches ? 2 : 3}} >
-            <a href='https://github.com/WeAreNewt/config.fyi' target="_blank"  rel="noreferrer"  > <u>GitHub</u></a>
-        </Typography>
-      </Box>
-    )
-  }
-
-  const Dropdown = () => {
-    return(
-      <Box sx={{display: 'flex' , margin: 'auto' , width: matches ? '90%' : 500, p:3}}>
-        <FormControl sx={{ width: 200 , display: 'flex' , margin: 'auto' }}fullWidth size="small">
-          <InputLabel id="demo-simple-select-label">Protocol</InputLabel>
-          <Select sx={{ width: '95%', margin: 'auto'}} value={protocol} onChange={handleProtocolChange} label='Protocol'>
-            <MenuItem value='v2'>aave v2</MenuItem>
-            <MenuItem value='v3'>aave v3</MenuItem>
-            <MenuItem value='univ3'>uniswap v3</MenuItem>
-            <MenuItem value='crvv2'>curve v2</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl sx={{ width: 200 , display: 'flex' , margin: 'auto' }} fullWidth size="small">
-          <InputLabel id="demo-simple-select-label">Market</InputLabel>
-            <Select  sx={{ width: '95%', margin: 'auto' }} value={selectedMarket} disabled={!protocolSelected} onChange={handleMarketChange} label='Market'>
-              {market?.map((n) => (
-                <MenuItem key={n.name} value={n.name}>{n.name}</MenuItem>
-              ))}
-            </Select>
-        </FormControl>  
-        
-      </Box>
-    )
-  }
-
-  const Info = () => {
-    return(
-      <Typography align='center' variant="h6" sx={{ display:"flex" , alignItems:"center", justifyContent:"center" , p: 8}}>
-        {!marketSelected ? 'please select protocol and market for table to populate' : ''}
-        {missingProtocol ? 'want to see config for another protocol? contribute to the github'  : ''} 
-        
-      </Typography>        
-    )
-  }
-
   return (
     
     <div className={styles.container}>
@@ -364,18 +158,16 @@ const Home: NextPage = () => {
         <title>config.fyi</title>
       </Head>
       
-      <Header/>
+      <Header matches={matches} darkMode={darkMode} onChange={() => setDarkMode(!darkMode)}/>
       
-      <Dropdown/>
+      <Dropdown matches={matches} protocol={protocol} handleProtocolChange={handleProtocolChange} selectedMarket={selectedMarket} protocolSelected={protocolSelected} market={market} handleMarketChange={handleMarketChange}/>
       
-      {!matches && <DownloadCsv protocol={protocol} riskParamsEthereum={riskParamsEthereum} marketSelected={marketSelected}/>}
+      {!matches && <DownloadCsv protocol={protocol} riskParams={riskParams} marketSelected={marketSelected}/>}
       
-      {protocol === 'v3' ? <Tablev3/> : <Tablev2/>  }
+      {protocol === 'v3' ? <Tablev3 matches={matches} riskParams={riskParams}/> : <Tablev2 matches={matches} riskParams={riskParams}/>  }
       {marketLoading ?  <Loading marketLoading={marketLoading} /> : ''} 
       
-      <Info/>
-
-    
+      <Info marketSelected={marketSelected} missingProtocol={missingProtocol}/>
 
       </ThemeProvider>
     </div>

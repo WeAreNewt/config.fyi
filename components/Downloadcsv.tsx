@@ -1,12 +1,32 @@
 import { Box, Button, Typography } from "@mui/material"
-import { FC } from "react";
 import { useCSVDownloader } from 'react-papaparse';
 
-const { CSVDownloader, Type } = useCSVDownloader()
+interface Asset {
+  symbol: string,
+  canCollateral: string,
+  LTV: string,
+  liqThereshold: string,
+  liqBonus: string,
+  reserveFactor: string,
+  canBorrow: string,
+  optimalUtilization: string,
+  varBorrowRate: string,
+  canBorrowStable: string,
+  stableBorrowRate: string,
+  shareOfStableRate: string,
+  debtCeiling?: string,
+  supplyCap?: string,
+  borrowCap?: string,
+  eModeLtv?: string
+  eModeLiquidationThereshold?: string,
+  eModeLiquidationBonus?: string,
+  assetLink: string,
+}
 
 
-
-const DownloadCsv = (props: { protocol: string; riskParamsEthereum: any; marketSelected: any; }) => {
+const DownloadCsv = (props: { protocol: string; riskParams: Asset[] | undefined; marketSelected: boolean; }) => {
+    const { CSVDownloader, Type } = useCSVDownloader()
+    
     return (
       <Box sx={{ width: props.protocol === 'v3' ? '90%' : '80%', 
         margin:'auto', display:'flex', justifyContent: 'flex-end' }}>
@@ -18,7 +38,7 @@ const DownloadCsv = (props: { protocol: string; riskParamsEthereum: any; marketS
         config={{
           delimiter: ';',
         }}
-        data={props.riskParamsEthereum}
+        data={props.riskParams}
 
       >
       <Button color="inherit"  variant="outlined" disabled={!props.marketSelected} size='small' style={{textTransform: 'none'}} >
