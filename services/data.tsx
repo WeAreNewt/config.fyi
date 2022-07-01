@@ -50,7 +50,7 @@ const fetchReservesAny = async (
         reserves.baseCurrencyData.marketReferenceCurrencyDecimals,
       marketReferencePriceInUsd: reserves.baseCurrencyData.marketReferenceCurrencyPriceInUsd,
     });
-
+    
     const reservesArray = formattedPoolReserves.map(n => 
       protocol === 'v3' ? 
       ({

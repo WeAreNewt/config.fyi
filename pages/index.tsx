@@ -55,6 +55,7 @@ const Home: NextPage = () => {
       const mkt = market?.find((n: { name: string; }) => n.name === event.target.value)
       dataService.fetchReservesAny(mkt.config, protocol).then(data => {
         setRiskParams(data)
+        
         setMarketLoading(false)
       })
     }
@@ -162,7 +163,7 @@ const Home: NextPage = () => {
       
       <Dropdown matches={matches} protocol={protocol} handleProtocolChange={handleProtocolChange} selectedMarket={selectedMarket} protocolSelected={protocolSelected} market={market} handleMarketChange={handleMarketChange}/>
       
-      {!matches && <DownloadCsv protocol={protocol} riskParams={riskParams} marketSelected={marketSelected}/>}
+      {!matches && <DownloadCsv protocol={protocol} riskParams={riskParams} marketSelected={marketSelected} missingProtocol={missingProtocol}/>}
       
       {protocol === 'v3' ? <Tablev3 matches={matches} riskParams={riskParams}/> : <Tablev2 matches={matches} riskParams={riskParams}/>  }
       {marketLoading ?  <Loading marketLoading={marketLoading} /> : ''} 

@@ -24,7 +24,7 @@ interface Asset {
 }
 
 
-const Tablev3 = (props: { matches: boolean; riskParams: Asset[] }) => {
+const Tablev3 = (props: { matches: boolean; riskParams: Asset[] | undefined }) => {
     return(
       <TableContainer sx={{ width: props.matches ? '100%' : '90%', margin: 'auto', border: '1px dashed grey', mt:1}}>
         <Table  size="small" aria-label="a dense table " >
@@ -54,7 +54,7 @@ const Tablev3 = (props: { matches: boolean; riskParams: Asset[] }) => {
           <TableBody>
             {props.riskParams?.map((n) => (
               <TableRow
-                key={props.riskParams.indexOf(n)}
+                key={props.riskParams?.indexOf(n)}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">{n.symbol}

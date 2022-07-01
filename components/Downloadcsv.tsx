@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material"
 import { useCSVDownloader } from 'react-papaparse';
 
+
 interface Asset {
   symbol: string,
   canCollateral: string,
@@ -24,13 +25,13 @@ interface Asset {
 }
 
 
-const DownloadCsv = (props: { protocol: string; riskParams: Asset[] | undefined; marketSelected: boolean; }) => {
+const DownloadCsv = (props: { protocol: string; riskParams: Asset[] | undefined; marketSelected: boolean; missingProtocol: boolean; }) => {
     const { CSVDownloader, Type } = useCSVDownloader()
-    
+   
     return (
       <Box sx={{ width: props.protocol === 'v3' ? '90%' : '80%', 
         margin:'auto', display:'flex', justifyContent: 'flex-end' }}>
-      
+         
       <CSVDownloader
         type={Type.Link}
         filename={'riskparameters'}
@@ -41,12 +42,13 @@ const DownloadCsv = (props: { protocol: string; riskParams: Asset[] | undefined;
         data={props.riskParams}
 
       >
-      <Button color="inherit"  variant="outlined" disabled={!props.marketSelected} size='small' style={{textTransform: 'none'}} >
+      <Button color="inherit"  variant="outlined" disabled={!props.marketSelected || props.missingProtocol} size='small' style={{textTransform: 'none'}} >
         <Typography variant="h6" >
         download csv
         </Typography>
       </Button>
       </CSVDownloader>
+   
       </Box>
     )
   }
