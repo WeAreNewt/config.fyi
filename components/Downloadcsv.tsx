@@ -29,10 +29,10 @@ const DownloadCsv = (props: { protocol: string; riskParams: Asset[] | undefined;
     const { CSVDownloader, Type } = useCSVDownloader()
    
     return (
-      <Box sx={{ width: props.protocol === 'v3' ? '90%' : '80%', 
+      <Box sx={{ width: props.protocol === 'v3' ? '90%' : '80%', height:33.13,
         margin:'auto', display:'flex', justifyContent: 'flex-end' }}>
          
-      <CSVDownloader
+      {!props.marketSelected || props.missingProtocol ? '' : <CSVDownloader
         type={Type.Link}
         filename={'riskparameters'}
         bom={true}
@@ -40,6 +40,7 @@ const DownloadCsv = (props: { protocol: string; riskParams: Asset[] | undefined;
           delimiter: ';',
         }}
         data={props.riskParams}
+        disabled={true}
 
       >
       <Button color="inherit"  variant="outlined" disabled={!props.marketSelected || props.missingProtocol} size='small' style={{textTransform: 'none'}} >
@@ -47,7 +48,7 @@ const DownloadCsv = (props: { protocol: string; riskParams: Asset[] | undefined;
         download csv
         </Typography>
       </Button>
-      </CSVDownloader>
+      </CSVDownloader>}
    
       </Box>
     )
