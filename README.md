@@ -121,13 +121,13 @@ Then, you can insert this formatted data into the relevant places in the config.
 First, install the dependencies using npm
 
 ```bash
-npm install
+yarn install
 ```
 
 Then serve the app to your local server using npn
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
