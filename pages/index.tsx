@@ -38,8 +38,14 @@ const Home: NextPage = () => {
 
     if(event.target.value === 'v2')setMarket(markets.v2)
     if(event.target.value === 'v3')setMarket(markets.v3)
-    if(event.target.value === 'univ3')setMarket(markets.univ3)
-    if(event.target.value === 'crvv2')setMarket(markets.crvv2)
+    if(event.target.value === 'univ3'){
+      setMarket(markets.univ3)
+      setMissingProtocol(true)
+    }
+    if(event.target.value === 'crvv2'){
+      setMarket(markets.crvv2)
+      setMissingProtocol(true)
+    }
 
   }
 
