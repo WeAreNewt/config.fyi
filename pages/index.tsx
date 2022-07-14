@@ -12,15 +12,14 @@ import DownloadCsv from '../components/Downloadcsv';
 import Info from '../components/Info';
 import Dropdown from '../components/Dropdown';
 import Header from '../components/Header';
-import Tablev2 from '../components/Tablev2';
-import Tablev3 from '../components/Tablev3';
+import Datatable from '../components/Tablev2';
 
 
 const Home: NextPage = () => {
   const [ riskParams, setRiskParams ] = useState<Asset[] | undefined>([]);
   const [ market, setMarket ] = useState<any >()
   const [ selectedMarket, setSelectedMarket ] = useState<string>('')
-  const [ protocol, setProtocol ] = useState<string >('')
+  const [ protocol, setProtocol ] = useState<string >('v2')
   const [ protocolSelected, setProtocolSelected ] = useState<boolean>(false)
   const [ marketSelected, setMarketSelected ] = useState<boolean>(false)
   const [ marketLoading, setMarketLoading ] = useState<boolean>(false)
@@ -35,7 +34,7 @@ const Home: NextPage = () => {
     setProtocolSelected(true)
     setMarketSelected(false)
     setMissingProtocol(false)
-
+    
     if(event.target.value === 'v2')setMarket(markets.v2)
     if(event.target.value === 'v3')setMarket(markets.v3)
     if(event.target.value === 'univ3'){
@@ -171,7 +170,7 @@ const Home: NextPage = () => {
       
       {!matches && <DownloadCsv protocol={protocol} riskParams={riskParams} marketSelected={marketSelected} missingProtocol={missingProtocol}/>}
       
-      {protocol === 'v3' ? <Tablev3 matches={matches} riskParams={riskParams}/> : <Tablev2 matches={matches} riskParams={riskParams}/>  }
+      <Datatable protocol={protocol} matches={matches} riskParams={riskParams}/>  
       {marketLoading ?  <Loading marketLoading={marketLoading} /> : ''} 
       
       <Info marketSelected={marketSelected} missingProtocol={missingProtocol}/>
