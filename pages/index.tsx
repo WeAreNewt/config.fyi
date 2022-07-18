@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dataService from '../services/data'
 import { marketConfig } from '../utils/marketconfig';
 import { CssBaseline, SelectChangeEvent } from '@mui/material';
@@ -12,25 +12,34 @@ import DownloadCsv from '../components/Downloadcsv';
 import Info from '../components/Info';
 import Dropdown from '../components/Dropdown';
 import Header from '../components/Header';
-import Datatable from '../components/Tablev2';
+import Datatable from '../components/Datatable';
+import { Aavev2, Aavev3 } from '../utils/interfaces'
 
 
 const Home: NextPage = () => {
-  const [ riskParams, setRiskParams ] = useState<Asset[] | undefined>([]);
+  const [ riskParams, setRiskParams ] = useState<assetType[] | undefined>([]);
   const [ market, setMarket ] = useState<any >()
   const [ selectedMarket, setSelectedMarket ] = useState<string>('')
   const [ protocol, setProtocol ] = useState<string >('v2')
-  const [ protocolSelected, setProtocolSelected ] = useState<boolean>(false)
+  const [ protocolSelected, setProtocolSelected ] = useState<boolean>(true)
   const [ marketSelected, setMarketSelected ] = useState<boolean>(false)
   const [ marketLoading, setMarketLoading ] = useState<boolean>(false)
   const [ missingProtocol, setMissingProtocol ] = useState<boolean>(false)
   const [ darkMode, setDarkMode ] = useState<boolean>(true)
 
 
+  type assetType = Aavev2 | Aavev3
+
+  useEffect(() => {
+    setMarket(markets.v2)
+  }, []);
+
+
   const handleProtocolChange = (event: SelectChangeEvent) => {
     setProtocol(event.target.value)
     setSelectedMarket('')
     setRiskParams(undefined)
+
     setProtocolSelected(true)
     setMarketSelected(false)
     setMissingProtocol(false)
@@ -79,27 +88,6 @@ const Home: NextPage = () => {
      }
   });
 
-  interface Asset {
-    symbol: string,
-    canCollateral: string,
-    LTV: string,
-    liqThereshold: string,
-    liqBonus: string,
-    reserveFactor: string,
-    canBorrow: string,
-    optimalUtilization: string,
-    varBorrowRate: string,
-    canBorrowStable: string,
-    stableBorrowRate: string,
-    shareOfStableRate: string,
-    debtCeiling?: string,
-    supplyCap?: string,
-    borrowCap?: string,
-    eModeLtv?: string
-    eModeLiquidationThereshold?: string,
-    eModeLiquidationBonus?: string,
-    assetLink: string,
-}
 
   const markets = {
     v2 : [
