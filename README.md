@@ -116,22 +116,6 @@ Next, research the best method for retrieving formatted data from the smart cont
 
 Then, you can insert this formatted data into the relevant places in the config.fyi frontend code.
 
-## Getting Started (could delete)
-
-First, install the dependencies using npm
-
-```bash
-yarn install
-```
-
-Then serve the app to your local server using npn
-
-```bash
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 ## License
 
 [Link to code license](LICENSE.md)
