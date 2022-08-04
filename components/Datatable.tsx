@@ -5,7 +5,7 @@ import { assetType } from '../utils/interfaces'
 
 const Datatable = (props: { protocol: string, matches: boolean; riskParams: assetType[] | undefined }) => {
   type ObjectKey = keyof typeof headers
-  const hasURL : boolean = false;
+  let hasURL : boolean = false;
 
   if(props.riskParams) {
     for(let i = 0; i < props.riskParams.length; i++) {
