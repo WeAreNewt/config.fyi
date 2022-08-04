@@ -36,6 +36,8 @@ interface Aavev3 {
     assetLink: string,
 }
 
+export type assetType = (Aavev2 | Aavev3)
+
 export type {
     Aavev2,
     Aavev3

@@ -6,9 +6,6 @@ import {
 import { formatReserves } from '@aave/math-utils';
 import dayjs from 'dayjs';
 
-const riskParameters: string[] = []
-
-
 const fetchReservesAny = async (
   config:{
     chainId: ChainId,
@@ -100,6 +97,4 @@ const fetchReservesAny = async (
   
 }
 
-export default {
-  fetchReservesAny: fetchReservesAny
-}
+export default fetchReservesAny
