@@ -17,7 +17,7 @@ Then, you can insert this formatted data into the relevant places in the config.
 
 Create an interface for the data that you will return and register it into the types
 
-utils/interfaces.tsx
+```utils/interfaces.tsx```
 
 ```ts
 interface Test {
@@ -27,13 +27,13 @@ interface Test {
 }
 ```
 
-utils/interfaces.tsx
+```utils/interfaces.tsx```
 
 ```ts
 export type assetType = (Aavev2 | Aavev3 | Test)
 ```
 
-utils/interfaces.tsx
+```utils/interfaces.tsx```
 
 ```ts
 export type {
@@ -45,7 +45,7 @@ export type {
 
 The most important part is creating a service that will fetch the data from your source (contracts, subgraph, sdk, ...), in this demo we will just use a simple json as a service
 
-services/test.tsx
+```services/test.tsx```
 ```ts
 import { Test } from "../utils/interfaces"
 
@@ -68,7 +68,7 @@ export default getTestData
 
 Then you need to add your protocol into the dropdown (the value will be the "protocolId")
 
-components/Dropdown.tsx
+```components/Dropdown.tsx```
 
 ```ts
 <MenuItem value='test'>test</MenuItem>
@@ -76,7 +76,7 @@ components/Dropdown.tsx
 
 After that you should add the table headers that you want to use:
 
-utils/headers.tsx
+```utils/headers.tsx```
 
 ```ts
 test: ['header1', 'header2']
@@ -84,7 +84,7 @@ test: ['header1', 'header2']
 
 And also set the markets that you want to use:
 
-utils/markets.tsx
+```utils/markets.tsx```
 ```ts
 test : [{
     name: 'test'
@@ -99,7 +99,7 @@ pages/index.tsx (inside handleProtocolChange)
 if(event.target.value === 'test') setMarket(markets.test)
 ```
 
-pages/index.tsx (inside handleMarketChange)
+```pages/index.tsx``` (inside ```handleMarketChange```)
 
 ```ts
 ...
