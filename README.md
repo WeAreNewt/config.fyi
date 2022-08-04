@@ -93,7 +93,7 @@ test : [{
 
 Then we need to handle the dropdown changes on the index:
 
-pages/index.tsx (inside handleProtocolChange)
+pages/index.tsx (inside ```handleProtocolChange```)
 
 ```ts
 if(event.target.value === 'test') setMarket(markets.test)
