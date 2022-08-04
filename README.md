@@ -114,8 +114,81 @@ Next, research the best method for retrieving formatted data from the smart cont
 - from a relevant subgraph
 - from the protocol's SDK (if available)
 
-Then, you can insert this formatted data into the relevant places in the config.fyi frontend code.
+Then, you can insert this formatted data into the relevant places in the config.fyi frontend code which are:
 
+Create an interface for the data that you will return and register it into the types
+
+utils/interfaces.tsx
+
+    interface Test {
+        aaa: string,
+        bbb: string,
+        assetLink?: string
+    }
+
+utils/interfaces.tsx
+
+    export type assetType = (Aavev2 | Aavev3 | Test)
+
+The most important part is creating a service that will fetch the data from your source (contracts, subgraph, sdk, ...), in this demo we will just use a simple json as a service
+
+services/test.tsx
+
+    import { Test } from "../utils/interfaces"
+
+    const getTestData = async () => {
+
+      return ([
+        {
+            aaa: 'aa',
+            bbb: 'bb'
+        },
+        {
+            aaa: 'cc',
+            bbb: 'dd'
+        }
+      ] as Test[])
+    }
+
+    export default getTestData
+
+Then you need to add your protocol into the dropdown (the value will be the "protocolId")
+
+components/Dropdown.tsx
+
+    <MenuItem value='test'>test</MenuItem>
+
+After that you should add the table headers that you want to use:
+
+utils/headers.tsx
+
+    test: ['header1', 'header2']
+
+And also set the markets that you want to use:
+
+utils/markets.tsx
+
+    test : [{
+        name: 'test'
+    }] 
+
+Then we need to handle the dropdown changes on the index:
+
+pages/index.tsx (inside handleProtocolChange)
+
+    if(event.target.value === 'test') setMarket(markets.test)
+
+pages/index.tsx (inside handleMarketChange)
+
+    ...
+    else if (protocol === 'test') {
+        testService().then(data=> {
+          setTableData(data)
+          setMarketLoading(false)
+        })
+        setMarketLoading(false)
+      }
+      
 ## License
 
 [Link to code license](LICENSE.md)

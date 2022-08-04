@@ -32,7 +32,6 @@ const Home: NextPage = () => {
     setMarket(markets.v2)
   }, []);
 
-
   const handleProtocolChange = (event: SelectChangeEvent) => {
     setProtocol(event.target.value)
     setSelectedMarket('')
