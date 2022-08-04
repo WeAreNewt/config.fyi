@@ -78,14 +78,14 @@ After that you should add the table headers that you want to use:
 
 utils/headers.tsx
 
-```json
+```ts
 test: ['header1', 'header2']
 ````
 
 And also set the markets that you want to use:
 
 utils/markets.tsx
-```json
+```ts
 test : [{
     name: 'test'
 }] 
@@ -102,13 +102,14 @@ if(event.target.value === 'test') setMarket(markets.test)
 pages/index.tsx (inside handleMarketChange)
 
 ```ts
-else if (protocol === 'test') {
-    testService().then(data=> {
-      setTableData(data)
-      setMarketLoading(false)
-    })
+...
+} else if (protocol === 'test') {
+  testService().then(data=> {
+    setTableData(data)
     setMarketLoading(false)
-  }
+  })
+  setMarketLoading(false)
+}
 ```
 You can check the diff between this demo and main [here](https://github.com/WeAreNewt/config.fyi/compare/demo/adding-protocol) and check the live demo [here](https://config-experiment-git-demo-adding-protocol-avara-newt.vercel.app/)
 
