@@ -78,14 +78,14 @@ After that you should add the table headers that you want to use:
 
 utils/headers.tsx
 
-```ts
+```json
 test: ['header1', 'header2']
 ````
 
 And also set the markets that you want to use:
 
 utils/markets.tsx
-```ts
+```json
 test : [{
     name: 'test'
 }] 
@@ -97,7 +97,7 @@ pages/index.tsx (inside handleProtocolChange)
 
 ```ts
 if(event.target.value === 'test') setMarket(markets.test)
-````
+```
 
 pages/index.tsx (inside handleMarketChange)
 
