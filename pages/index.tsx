@@ -2,8 +2,6 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react';
-import dataService from '../services/data'
-import { marketConfig } from '../utils/marketconfig';
 import { CssBaseline, SelectChangeEvent } from '@mui/material';
 import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
@@ -13,8 +11,11 @@ import Info from '../components/Info';
 import Dropdown from '../components/Dropdown';
 import Header from '../components/Header';
 import Datatable from '../components/Datatable';
-import { Aavev2, Aavev3 } from '../utils/interfaces'
+import { markets } from '../utils/markets';
+import { assetType } from '../utils/interfaces'
 
+import aaveService from '../services/aave'
+import testService from '../services/test'
 
 const Home: NextPage = () => {
   const [ riskParams, setRiskParams ] = useState<assetType[] | undefined>([]);
@@ -26,9 +27,6 @@ const Home: NextPage = () => {
   const [ marketLoading, setMarketLoading ] = useState<boolean>(false)
   const [ missingProtocol, setMissingProtocol ] = useState<boolean>(false)
   const [ darkMode, setDarkMode ] = useState<boolean>(true)
-
-
-  type assetType = Aavev2 | Aavev3
 
   useEffect(() => {
     setMarket(markets.v2)
@@ -52,7 +50,11 @@ const Home: NextPage = () => {
     }
     if(event.target.value === 'crvv2'){
       setMarket(markets.crvv2)
+      console.log('crvv2')
       setMissingProtocol(true)
+    }
+    if(event.target.value === 'test') {
+      setMarket(markets.test)
     }
 
   }
@@ -66,12 +68,21 @@ const Home: NextPage = () => {
 
     if(!(event.target.value === 'all')){
       setMarketLoading(true)
-      const mkt = market?.find((n: { name: string; }) => n.name === event.target.value)
-      dataService.fetchReservesAny(mkt.config, protocol).then(data => {
-        setRiskParams(data)
-        
+      
+      if(protocol === 'v2' || protocol === 'v3') {
+        const mkt = market?.find((n: { name: string; }) => n.name === event.target.value)
+        aaveService(mkt.config, protocol).then(data => {
+          setRiskParams(data)
+          
+          setMarketLoading(false)
+        })
+      } else if (protocol === 'test') {
+        testService().then(data=> {
+          setRiskParams(data)
+          setMarketLoading(false)
+        })
         setMarketLoading(false)
-      })
+      }
     }
   }
   
@@ -87,60 +98,6 @@ const Home: NextPage = () => {
       fontSize: matches ? 9 : 11
      }
   });
-
-
-  const markets = {
-    v2 : [
-      {
-        name: 'ethereum',
-        config: marketConfig.ethereum
-      },
-      {
-        name: 'eth amm',
-        config: marketConfig.ethamm
-      },
-      {
-        name: 'avalanche',
-        config: marketConfig.avalanche
-      },
-      {
-        name: 'polygon',
-        config: marketConfig.polygon
-      }
-    ],
-    v3 : [
-      {
-        name: 'arbitrum',
-        config: marketConfig.arbitrum
-      },
-      {
-        name: 'avalanche',
-        config: marketConfig.avalanchev3
-      },
-      {
-        name: 'fantom',
-        config: marketConfig.fantom
-      },
-      {
-        name: 'harmony',
-        config: marketConfig.harmony
-      },
-      {
-        name: 'optimism',
-        config: marketConfig.optimism
-      },
-      {
-        name: 'polygon',
-        config: marketConfig.polygonv3
-      }
-    ],
-    univ3 : [{
-      name: 'all'
-    }],
-    crvv2 : [{
-      name: 'all'
-    }]
-  }
 
   return (
     
