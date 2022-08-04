@@ -100,6 +100,4 @@ const fetchReservesAny = async (
   
 }
 
-export default {
-  fetchReservesAny: fetchReservesAny
-}
+export default fetchReservesAny
