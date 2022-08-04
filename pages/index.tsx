@@ -18,7 +18,7 @@ import aaveService from '../services/aave'
 import testService from '../services/test'
 
 const Home: NextPage = () => {
-  const [ riskParams, setRiskParams ] = useState<assetType[] | undefined>([]);
+  const [ tableData, setTableData ] = useState<assetType[] | undefined>([]);
   const [ market, setMarket ] = useState<any >()
   const [ selectedMarket, setSelectedMarket ] = useState<string>('')
   const [ protocol, setProtocol ] = useState<string >('v2')
@@ -36,25 +36,22 @@ const Home: NextPage = () => {
   const handleProtocolChange = (event: SelectChangeEvent) => {
     setProtocol(event.target.value)
     setSelectedMarket('')
-    setRiskParams(undefined)
+    setTableData(undefined)
 
     setProtocolSelected(true)
     setMarketSelected(false)
     setMissingProtocol(false)
     
-    if(event.target.value === 'v2')setMarket(markets.v2)
-    if(event.target.value === 'v3')setMarket(markets.v3)
+    if(event.target.value === 'v2') setMarket(markets.v2)
+    if(event.target.value === 'v3') setMarket(markets.v3)
+    if(event.target.value === 'test') setMarket(markets.test)
     if(event.target.value === 'univ3'){
       setMarket(markets.univ3)
       setMissingProtocol(true)
     }
     if(event.target.value === 'crvv2'){
       setMarket(markets.crvv2)
-      console.log('crvv2')
       setMissingProtocol(true)
-    }
-    if(event.target.value === 'test') {
-      setMarket(markets.test)
     }
 
   }
@@ -72,13 +69,13 @@ const Home: NextPage = () => {
       if(protocol === 'v2' || protocol === 'v3') {
         const mkt = market?.find((n: { name: string; }) => n.name === event.target.value)
         aaveService(mkt.config, protocol).then(data => {
-          setRiskParams(data)
+          setTableData(data)
           
           setMarketLoading(false)
         })
       } else if (protocol === 'test') {
         testService().then(data=> {
-          setRiskParams(data)
+          setTableData(data)
           setMarketLoading(false)
         })
         setMarketLoading(false)
@@ -113,9 +110,9 @@ const Home: NextPage = () => {
       
       <Dropdown matches={matches} protocol={protocol} handleProtocolChange={handleProtocolChange} selectedMarket={selectedMarket} protocolSelected={protocolSelected} market={market} handleMarketChange={handleMarketChange}/>
       
-      {!matches && <DownloadCsv protocol={protocol} riskParams={riskParams} marketSelected={marketSelected} missingProtocol={missingProtocol}/>}
+      {!matches && <DownloadCsv protocol={protocol} riskParams={tableData} marketSelected={marketSelected} missingProtocol={missingProtocol}/>}
       
-      <Datatable protocol={protocol} matches={matches} riskParams={riskParams}/>  
+      <Datatable protocol={protocol} matches={matches} riskParams={tableData}/>  
       {marketLoading ?  <Loading marketLoading={marketLoading} /> : ''} 
       
       <Info marketSelected={marketSelected} missingProtocol={missingProtocol}/>
