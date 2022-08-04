@@ -197,7 +197,7 @@ pages/index.tsx (inside handleMarketChange)
         setMarketLoading(false)
       }
   
-You can check a branch with this demo service on [Here](https://github.com/WeAreNewt/config.fyi/tree/demo/adding-protocol)
+You can check the diff between this demo and main [here](https://github.com/WeAreNewt/config.fyi/compare/demo/adding-protocol) and check the live demo [here](https://config-experiment-git-demo-adding-protocol-avara-newt.vercel.app/)
 
 ## License
 
