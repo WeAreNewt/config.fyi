@@ -4,7 +4,116 @@ config.fyi is a frontend that displays the main parameters of major DeFi protoco
 
 config.fyi is also built with a data abstraction framework that easily and quickly allows for the support of other DeFi protocols' parameters, including Uniswap V3 and Curve V2, amongst any other protocol that a developer wants to include into the UI.
 
-## How It Works
+## How to Add More Protocols
+
+First, familiarize yourself with the smart contracts within the protocol that you wish to include into config.fyi. This can be done by going through the developer documentation of the protocols' websites and finding the relevant smart contracts.
+
+Next, research the best method for retrieving formatted data from the smart contracts. This can be done:
+- directly from the contracts
+- from a relevant subgraph
+- from the protocol's SDK (if available)
+
+Then, you can insert this formatted data into the relevant places in the config.fyi frontend code which are:
+
+Create an interface for the data that you will return and register it into the types
+
+```utils/interfaces.tsx```
+
+```ts
+interface Test {
+    aaa: string,
+    bbb: string,
+    assetLink?: string
+}
+```
+
+```utils/interfaces.tsx```
+
+```ts
+export type assetType = (Aavev2 | Aavev3 | Test)
+```
+
+```utils/interfaces.tsx```
+
+```ts
+export type {
+  Aavev2,
+  Aavev3,
+  Test
+}
+```
+
+The most important part is creating a service that will fetch the data from your source (contracts, subgraph, sdk, ...), in this demo we will just use a simple json as a service
+
+```services/test.tsx```
+```ts
+import { Test } from "../utils/interfaces"
+
+const getTestData = async () => {
+
+  return ([
+    {
+        aaa: 'aa',
+        bbb: 'bb'
+    },
+    {
+        aaa: 'cc',
+        bbb: 'dd'
+    }
+  ] as Test[])
+}
+
+export default getTestData
+```
+
+Then you need to add your protocol into the dropdown (the value will be the "protocolId")
+
+```components/Dropdown.tsx```
+
+```ts
+<MenuItem value='test'>test</MenuItem>
+```
+
+After that you should add the table headers that you want to use:
+
+```utils/headers.tsx```
+
+```ts
+test: ['header1', 'header2']
+````
+
+And also set the markets that you want to use:
+
+```utils/markets.tsx```
+```ts
+test : [{
+    name: 'test'
+}] 
+```
+
+Then we need to handle the dropdown changes on the index:
+
+pages/index.tsx (inside ```handleProtocolChange```)
+
+```ts
+if(event.target.value === 'test') setMarket(markets.test)
+```
+
+```pages/index.tsx``` (inside ```handleMarketChange```)
+
+```ts
+...
+} else if (protocol === 'test') {
+  testService().then(data=> {
+    setTableData(data)
+    setMarketLoading(false)
+  })
+  setMarketLoading(false)
+}
+```
+You can check the diff between this demo and main [here](https://github.com/WeAreNewt/config.fyi/compare/demo/adding-protocol) and check the live demo [here](https://config-experiment-git-demo-adding-protocol-avara-newt.vercel.app/)
+
+## How the aave integration works
 
 config.fyi uses the [Aave utilities SDK](https://github.com/aave/aave-utilities#aave-utilities) in order to read parameters from Aave Protocol V2 and V3. 
 
@@ -103,101 +212,6 @@ avalanche:
     marketName: 'proto_avalanche'
     }
  ```
-
-
-## How to Add More Protocols
-
-First, familiarize yourself with the smart contracts within the protocol that you wish to include into config.fyi. This can be done by going through the developer documentation of the protocols' websites and finding the relevant smart contracts.
-
-Next, research the best method for retrieving formatted data from the smart contracts. This can be done:
-- directly from the contracts
-- from a relevant subgraph
-- from the protocol's SDK (if available)
-
-Then, you can insert this formatted data into the relevant places in the config.fyi frontend code which are:
-
-Create an interface for the data that you will return and register it into the types
-
-utils/interfaces.tsx
-
-    interface Test {
-        aaa: string,
-        bbb: string,
-        assetLink?: string
-    }
-
-utils/interfaces.tsx
-
-    export type assetType = (Aavev2 | Aavev3 | Test)
-    
-utils/interfaces.tsx
-
-    export type {
-      Aavev2,
-      Aavev3,
-      Test
-    }
-
-The most important part is creating a service that will fetch the data from your source (contracts, subgraph, sdk, ...), in this demo we will just use a simple json as a service
-
-services/test.tsx
-
-    import { Test } from "../utils/interfaces"
-
-    const getTestData = async () => {
-
-      return ([
-        {
-            aaa: 'aa',
-            bbb: 'bb'
-        },
-        {
-            aaa: 'cc',
-            bbb: 'dd'
-        }
-      ] as Test[])
-    }
-
-    export default getTestData
-
-Then you need to add your protocol into the dropdown (the value will be the "protocolId")
-
-components/Dropdown.tsx
-
-    <MenuItem value='test'>test</MenuItem>
-
-After that you should add the table headers that you want to use:
-
-utils/headers.tsx
-
-    test: ['header1', 'header2']
-
-And also set the markets that you want to use:
-
-utils/markets.tsx
-
-    test : [{
-        name: 'test'
-    }] 
-
-Then we need to handle the dropdown changes on the index:
-
-pages/index.tsx (inside handleProtocolChange)
-
-    if(event.target.value === 'test') setMarket(markets.test)
-
-pages/index.tsx (inside handleMarketChange)
-
-    ...
-    else if (protocol === 'test') {
-        testService().then(data=> {
-          setTableData(data)
-          setMarketLoading(false)
-        })
-        setMarketLoading(false)
-      }
-  
-You can check the diff between this demo and main [here](https://github.com/WeAreNewt/config.fyi/compare/demo/adding-protocol) and check the live demo [here](https://config-experiment-git-demo-adding-protocol-avara-newt.vercel.app/)
 
 ## License
 
