@@ -15,7 +15,6 @@ import { markets } from '../utils/markets';
 import { assetType } from '../utils/interfaces'
 
 import aaveService from '../services/aave'
-import testService from '../services/test'
 
 const Home: NextPage = () => {
   const [ tableData, setTableData ] = useState<assetType[] | undefined>([]);
