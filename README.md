@@ -129,6 +129,14 @@ utils/interfaces.tsx
 utils/interfaces.tsx
 
     export type assetType = (Aavev2 | Aavev3 | Test)
+    
+utils/interfaces.tsx
+
+    export type {
+      Aavev2,
+      Aavev3,
+      Test
+    }
 
 The most important part is creating a service that will fetch the data from your source (contracts, subgraph, sdk, ...), in this demo we will just use a simple json as a service
 
@@ -188,7 +196,9 @@ pages/index.tsx (inside handleMarketChange)
         })
         setMarketLoading(false)
       }
-      
+  
+You can check a branch with this demo service on [Here](https://github.com/WeAreNewt/config.fyi/tree/demo/adding-protocol)
+
 ## License
 
 [Link to code license](LICENSE.md)
