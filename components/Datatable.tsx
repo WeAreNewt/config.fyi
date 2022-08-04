@@ -1,4 +1,3 @@
-import { ProposalState } from "@aave/contract-helpers";
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material"
 import { headers } from '../utils/headers'
 import { assetType } from '../utils/interfaces'
@@ -12,6 +11,7 @@ const Datatable = (props: { protocol: string, matches: boolean; riskParams: asse
       if(props.riskParams[i].assetLink != null) hasURL = true;
     }
   }
+  
   return(
     <TableContainer sx={{ width: props.matches ? '100%' : props.protocol === 'v3' ? '90%' : '80%', margin: 'auto' , border: '1px dashed grey' , size: 'small', mt: 1}} >
       <Table size="small" aria-label="a dense table " >
