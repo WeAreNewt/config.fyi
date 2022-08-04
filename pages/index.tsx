@@ -43,7 +43,6 @@ const Home: NextPage = () => {
     
     if(event.target.value === 'v2') setMarket(markets.v2)
     if(event.target.value === 'v3') setMarket(markets.v3)
-    if(event.target.value === 'test') setMarket(markets.test)
     if(event.target.value === 'univ3'){
       setMarket(markets.univ3)
       setMissingProtocol(true)
@@ -72,12 +71,6 @@ const Home: NextPage = () => {
           
           setMarketLoading(false)
         })
-      } else if (protocol === 'test') {
-        testService().then(data=> {
-          setTableData(data)
-          setMarketLoading(false)
-        })
-        setMarketLoading(false)
       }
     }
   }
