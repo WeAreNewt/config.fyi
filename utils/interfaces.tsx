@@ -36,9 +36,16 @@ interface Aavev3 {
     assetLink: string,
 }
 
-export type assetType = (Aavev2 | Aavev3)
+interface Test {
+    aaa: string,
+    bbb: string,
+    assetLink?: string
+}
+
+export type assetType = (Aavev2 | Aavev3 | Test)
 
 export type {
     Aavev2,
-    Aavev3
+    Aavev3,
+    Test
 }

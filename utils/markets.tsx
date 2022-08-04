@@ -51,5 +51,8 @@ export const markets = {
     }],
     crvv2 : [{
         name: 'all'
-    }]
+    }],
+    test : [{
+        name: 'test'
+    }] 
 }
