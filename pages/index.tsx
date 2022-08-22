@@ -20,7 +20,7 @@ const Home: NextPage = () => {
   const [ tableData, setTableData ] = useState<assetType[] | undefined>([]);
   const [ market, setMarket ] = useState<any >()
   const [ selectedMarket, setSelectedMarket ] = useState<string>('')
-  const [ protocol, setProtocol ] = useState<string >('v2')
+  const [ protocol, setProtocol ] = useState<string >('v3')
   const [ protocolSelected, setProtocolSelected ] = useState<boolean>(true)
   const [ marketSelected, setMarketSelected ] = useState<boolean>(false)
   const [ marketLoading, setMarketLoading ] = useState<boolean>(false)
@@ -28,7 +28,14 @@ const Home: NextPage = () => {
   const [ darkMode, setDarkMode ] = useState<boolean>(true)
 
   useEffect(() => {
-    setMarket(markets.v2)
+    setMarket(markets.v3)
+    setSelectedMarket('optimism')
+    const optimism : any  = markets.v3.find((n: { name: string; }) => n.name === 'optimism')
+    
+    aaveService(optimism.config, protocol).then(data => {
+      setTableData(data)
+      setMarketSelected(true)
+    })
   }, []);
 
   const handleProtocolChange = (event: SelectChangeEvent) => {
