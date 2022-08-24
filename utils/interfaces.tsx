@@ -36,9 +36,18 @@ interface Aavev3 {
     assetLink: string,
 }
 
-export type assetType = (Aavev2 | Aavev3)
+interface Benqi {
+    symbol: string,
+    collateralFactor: string,
+    reserveFactor: string,
+    closeFactor: string,
+    liquidationIncentive: string
+}
+
+export type assetType = (Aavev2 | Aavev3 | Benqi)
 
 export type {
     Aavev2,
-    Aavev3
+    Aavev3,
+    Benqi
 }

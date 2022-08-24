@@ -46,6 +46,11 @@ export const markets = {
         config: marketConfig.polygonv3
         }
     ],
+    benqi : [
+        {
+            name: 'avalanche'
+        }
+    ],
     univ3 : [{
         name: 'all'
     }],

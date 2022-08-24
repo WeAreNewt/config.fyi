@@ -15,6 +15,7 @@ import { markets } from '../utils/markets';
 import { assetType } from '../utils/interfaces'
 
 import aaveService from '../services/aave'
+import benqiService from '../services/benqi';
 
 const Home: NextPage = () => {
   const [ tableData, setTableData ] = useState<assetType[] | undefined>([]);
@@ -42,6 +43,7 @@ const Home: NextPage = () => {
     
     if(event.target.value === 'v2') setMarket(markets.v2)
     if(event.target.value === 'v3') setMarket(markets.v3)
+    if(event.target.value == 'benqi') setMarket(markets.benqi);
     if(event.target.value === 'univ3'){
       setMarket(markets.univ3)
       setMissingProtocol(true)
@@ -67,9 +69,15 @@ const Home: NextPage = () => {
         const mkt = market?.find((n: { name: string; }) => n.name === event.target.value)
         aaveService(mkt.config, protocol).then(data => {
           setTableData(data)
-          
           setMarketLoading(false)
-        })
+        }) 
+      } else if(protocol === 'benqi') {
+        const mkt = market?.find((n: { name: string; }) => n.name === 'avalanche')
+          benqiService(mkt.config).then(data => {
+            console.log(data)
+            setTableData(data)
+            setMarketLoading(false)
+          })
       }
     }
   }
