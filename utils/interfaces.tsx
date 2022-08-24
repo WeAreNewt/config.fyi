@@ -42,7 +42,7 @@ interface Benqi {
     reserveFactor: string,
     closeFactor: string,
     liquidationIncentive: string,
-    assetLink: string
+    assetLink?: string
 }
 
 export type assetType = (Aavev2 | Aavev3 | Benqi)
