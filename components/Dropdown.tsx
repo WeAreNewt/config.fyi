@@ -9,6 +9,7 @@ const Dropdown = (props: { matches: boolean; protocol: string; handleProtocolCha
           <Select sx={{ width: '95%', margin: 'auto'}} value={props.protocol} onChange={props.handleProtocolChange} label='Protocol'>
             <MenuItem value='v2'>aave v2</MenuItem>
             <MenuItem value='v3'>aave v3</MenuItem>
+            <MenuItem value='benqi'>benqi</MenuItem>
             <MenuItem value='univ3'>uniswap v3</MenuItem>
             <MenuItem value='crvv2'>curve v2</MenuItem>
           </Select>
