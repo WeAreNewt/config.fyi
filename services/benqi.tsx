@@ -34,7 +34,8 @@ const fetchBenqi = async (
             collateralFactor: String(Number(token.collateral_factor.value) * 100) + '%', 
             reserveFactor: String(Number(token.reserve_factor.value) * 100) + '%',
             closeFactor: (Number(closeFactor) / 1000000000000000000)  + '%',
-            liquidationIncentive: (Number(liquidationIncentive) / 1000000000000000000)  + '%'
+            liquidationIncentive: (Number(liquidationIncentive) / 1000000000000000000)  + '%',
+            assetLink: ''
         }
         data.push(tmp)
     })
