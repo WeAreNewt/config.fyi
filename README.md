@@ -1,10 +1,10 @@
 ## Overview
 
-config.fyi is a frontend that displays the main parameters of major DeFi protocols. For now, the UI has AAVE Protocol V2 and AAVE Protocol V3 parameters for all deployed chains (e.g., Ethereum, Avalanche, Polygon, Optimism, etc.)
+config.fyi is a frontend that displays the main parameters of major DeFi protocols. For now, the UI has AAVE Protocol V2 and AAVE Protocol V3 parameters for all deployed chains (e.g., Ethereum, Avalanche, Polygon, Optimism, etc.), as well as Benqi Finance for Avalanche.
 
-config.fyi is also built with a data abstraction framework that easily and quickly allows for the support of other DeFi protocols' parameters, including Uniswap V3 and Curve V2, amongst any other protocol that a developer wants to include into the UI.
+config is also built with a data abstraction framework that easily and quickly allows for the support of other DeFi protocols' parameters, including Uniswap V3 and Curve V2, amongst any other protocol that a developer wants to include into the UI.
 
-## How to Add More Protocols
+## How to add another protocol to config
 
 First, familiarize yourself with the smart contracts within the protocol that you wish to include into config.fyi. This can be done by going through the developer documentation of the protocols' websites and finding the relevant smart contracts.
 
@@ -111,9 +111,12 @@ if(event.target.value === 'test') setMarket(markets.test)
   setMarketLoading(false)
 }
 ```
+
+## Check out the test demo for yourself
+
 You can check the diff between this demo and main [here](https://github.com/WeAreNewt/config.fyi/compare/demo/adding-protocol) and check the live demo [here](https://config-experiment-git-demo-adding-protocol-avara-newt.vercel.app/)
 
-## How the aave integration works
+## How the Aave integration works
 
 config.fyi uses the [Aave utilities SDK](https://github.com/aave/aave-utilities#aave-utilities) in order to read parameters from Aave Protocol V2 and V3. 
 
