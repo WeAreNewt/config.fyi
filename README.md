@@ -216,6 +216,10 @@ avalanche:
     }
  ```
 
+## Contributing
+
+This experiment by Newt is entirely open source. Given the modular nature of Config, the UI can be integrated, enhanced, or forked by anyone. See [contributing](CONTRIBUTING.md) for more info on joining the Newt community to build with Config.
+
 ## License
 
 [Link to code license](LICENSE.md)
