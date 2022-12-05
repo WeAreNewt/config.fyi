@@ -28,21 +28,33 @@ const chainIdToRPCProvider: Record<number, string> = {
   1666700000: "harmony_testnet",
 };
 
+type configInterface = {
+  chainId: string;
+  marketName: string;
+  protocol: string;
+  lendingPoolAddressProvider: string;
+  uiDataProvider: string;
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const config = { ...req.query };
+  const config: configInterface = {
+    chainId: req.query.chainId as string,
+    marketName: req.query.marketName as string,
+    protocol: req.query.protocol as string,
+    lendingPoolAddressProvider: req.query.lendingPoolAddressProvider as string,
+    uiDataProvider: req.query.uiDataProvider as string,
+  };
 
   const currentTimestamp = dayjs().unix();
 
   const lendingPoolAddressProvider = config.lendingPoolAddressProvider;
-  const chainId = parseInt(config.chainId, 10);
 
-  console.log("DEBUG", chainIdToRPCProvider[chainId]);
+  const chainId: number = parseInt(config.chainId, 10);
 
   const provider = new ethers.providers.StaticJsonRpcProvider(
-    // `https://eth-rpc.moneta.crtlkey.com/${process.env.ETH_RPC_TOKEN}`,
     chainIdToRPCProvider[chainId],
     chainId
   );
