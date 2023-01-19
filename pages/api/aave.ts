@@ -21,7 +21,7 @@ const chainIdToRPCProvider: Record<number, string> = {
   250: "https://rpc.ftm.tools",
   4002: "fantom_testnet",
   // 10: "https://mainnet.optimism.io",
-  10: `https://optimism-rpc.moneta.crtlkey.com/${process.env.OPTIMISM_RPC_TOKEN}`,
+  10: `https://opt-mainnet.g.alchemy.com/v2/${process.env.OPTIMISM_RPC_TOKEN}`, // NOTE: Alchemy for now
   69: "optimism_kovan",
   420: "optimism_goerli",
   1666600000: "https://api.harmony.one",
