@@ -5,13 +5,13 @@ import { formatReserves } from "@aave/math-utils";
 import dayjs from "dayjs";
 
 const chainIdToRPCProvider: Record<number, string> = {
-  1: `https://eth-rpc.moneta.crtlkey.com/${process.env.ETH_RPC_TOKEN}`,
+  1: `https://eth-mainnet.moneta.fyi/${process.env.ETH_RPC_TOKEN}/`,
   3: "ropsten",
   4: "rinkeby",
   5: "goerli",
   42: "kovan",
   100: "xDAI",
-  137: `https://polygon-rpc.moneta.crtlkey.com/${process.env.POLYGON_RPC_TOKEN}`,
+  137: `https://polygon-mainnet.moneta.fyi/${process.env.POLYGON_RPC_TOKEN}/`,
   80001: "mumbai",
   43114: "https://api.avax.network/ext/bc/C/rpc",
   43113: "fuji",
