@@ -1,3 +1,4 @@
+import { AaveV3Ethereum } from "@bgd-labs/aave-address-book";
 import { ChainId } from "@aave/contract-helpers";
 
 export const marketConfig = {
@@ -57,6 +58,13 @@ export const marketConfig = {
     LENDING_POOL_ADDRESS_PROVIDER: "0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb",
     UI_POOL_DATA_PROVIDER: "0x8F1AD487C9413d7e81aB5B4E88B024Ae3b5637D0",
     marketName: "proto_polygon_v3",
+  },
+  ethereumv3: {
+    chainId: ChainId.mainnet,
+    publicJsonRPCUrl: "https://eth-mainnet.alchemyapi.io/v2/demo",
+    LENDING_POOL_ADDRESS_PROVIDER: AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
+    UI_POOL_DATA_PROVIDER: AaveV3Ethereum.UI_POOL_DATA_PROVIDER,
+    marketName: "proto_mainnet_v3",
   },
   harmony: {
     chainId: ChainId.harmony,

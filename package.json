@@ -9,14 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aave/contract-helpers": "^1.2.1",
-    "@aave/math-utils": "^1.2.1",
+    "@aave/contract-helpers": "^1.13.6",
+    "@aave/math-utils": "^1.13.6",
+    "@bgd-labs/aave-address-book": "^1.19.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.8.0",
     "@types/react-csv": "^1.1.2",
     "axios": "^0.27.2",
     "dayjs": "^1.11.1",
+    "fathom-client": "^3.5.0",
     "next": "12.1.5",
     "react": "18.0.0",
     "react-dom": "18.0.0",
