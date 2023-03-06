@@ -2,20 +2,17 @@
 # yarn lockfile v1
 
 
-"@aave/contract-helpers@^1.2.1":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@aave/contract-helpers/-/contract-helpers-1.5.0.tgz#0c2831c49f4f9d4d61258531864120160451e64c"
-  integrity "sha1-DCgxxJ9PnU1hJYUxhkEgFgRR5kw= sha512-5+ega+VUYWirXAD0E45v/NdVHite9ZVLczq9KjrCoPF9FWe5+JwnLGWX9RWO+czyZ3/4Hd+/Xb67bR+Cq5GeJw=="
+"@aave/contract-helpers@^1.13.6":
+  version "1.13.6"
+  resolved "https://registry.yarnpkg.com/@aave/contract-helpers/-/contract-helpers-1.13.6.tgz#bf105de16a700151d9e0f90ea90d03209994aa68"
+  integrity sha512-Z1q2+eQGn4FAzSzcEdTzsmD9jAUvsEawjnJiNZgWBam2JN6wdP33JZmMY6PwV1wKiaj+YdDfemDZREkw7svxtQ==
   dependencies:
     isomorphic-unfetch "^3.1.0"
 
-"@aave/math-utils@^1.2.1":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@aave/math-utils/-/math-utils-1.5.0.tgz#0c554174b25ca3b5f99e4a3d792d44237b2f53db"
-  integrity "sha1-DFVBdLJco7X5nko9eS1EI3svU9s= sha512-ohgywcTge1bJ2qrm/pvpCGKxULPzuqftOXd3HLCyRNjF8ulY4ZEWICEPcpssLFyXmdepNwSfKrR0wHviIu2fIg=="
-  dependencies:
-    bignumber.js "^9.0.1"
-    tslib "^2.3.1"
+"@aave/math-utils@^1.13.6":
+  version "1.13.6"
+  resolved "https://registry.yarnpkg.com/@aave/math-utils/-/math-utils-1.13.6.tgz#4ad21a35ec568965d46585a36600f3410982c18c"
+  integrity sha512-ej5DoH7GwA4aooSvJ4ILC9nStvMJ0ss7tThQuhL4zizV6Zd81kH2DZKIapErnGL2MGF3rG+/DBoBq0+W9whsKw==
 
 "@babel/code-frame@^7.0.0":
   version "7.18.6"
@@ -85,6 +82,11 @@
     "@babel/helper-string-parser" "^7.18.10"
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
+
+"@bgd-labs/aave-address-book@^1.19.0":
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/@bgd-labs/aave-address-book/-/aave-address-book-1.19.0.tgz#c11e2afa4149da78e53f17abfcfa38c1a3db9271"
+  integrity sha512-Z36b3zma+cPzkOubeMSeg2b9dx/+UInbIR4DWpGIguxh82X2tdZrA5rTUAioTcaumtmvkrtI08cSYa48qY2CAg==
 
 "@emotion/babel-plugin@^11.10.0":
   version "11.10.2"
@@ -1172,7 +1174,7 @@ bech32@1.1.4:
   resolved "https://registry.npmjs.org/bech32/-/bech32-1.1.4.tgz"
   integrity "sha1-44yfN78Xm46xauOncrQMNW1IMuk= sha512-s0IrSOzLlbvX7yp4WBfPITzpAU8sqQcpsmwXDiKwrG4r491vwCO/XpejasRNl0piBMe/DvP4Tz0mIS/X1DPJBQ=="
 
-bignumber.js@^9.0.0, bignumber.js@^9.0.1:
+bignumber.js@^9.0.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.1.0.tgz#8d340146107fe3a6cb8d40699643c302e8773b62"
   integrity "sha1-jTQBRhB/46bLjUBplkPDAuh3O2I= sha512-4LwHK4nfDOraBCtst+wOWIHbu1vhvAPJK8g8nROd4iuc3PSEjWif/qwbkh8jwCJz6yDBvtU4KPynETgrfh7y3A=="
@@ -2351,6 +2353,11 @@ fastq@^1.6.0:
   integrity "sha1-YWdg+Ip1Jr38WWt8q4wYk4w2uYw= sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw=="
   dependencies:
     reusify "^1.0.4"
+
+fathom-client@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/fathom-client/-/fathom-client-3.5.0.tgz#47bf3e67fa789ec415fe6efdc0ec02b9187b4b0d"
+  integrity sha512-BiRDS9Q9a8Zma0H717FWC5cvf545K/CsxBpxKT22TcSl1EbRhhlHWIJgrdeiQUfdorBK2ppy09TwMOhRsbos/A==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
@@ -4413,11 +4420,6 @@ tslib@^1.8.1:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity "sha1-zy04vcNKE0vK8QkcQfZhni9nLQA= sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg=="
-
-tslib@^2.3.1:
-  version "2.4.0"
-  resolved "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
-  integrity "sha1-fOyqfwc85oCgWEeqd76UEJjzbcM= sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ=="
 
 tsutils@^3.21.0:
   version "3.21.0"
