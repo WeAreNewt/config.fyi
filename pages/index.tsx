@@ -30,12 +30,12 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     setMarket(markets.v3);
-    setSelectedMarket("optimism");
-    const optimism: any = markets.v3.find(
-      (n: { name: string }) => n.name === "optimism"
+    setSelectedMarket("ethereum");
+    const ethereum: any = markets.v3.find(
+      (n: { name: string }) => n.name === "ethereum"
     );
 
-    aaveService(optimism.config, protocol).then((data) => {
+    aaveService(ethereum.config, protocol).then((data) => {
       setTableData(data);
       setMarketSelected(true);
     });
