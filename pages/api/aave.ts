@@ -114,6 +114,7 @@ export default async function handler(
             eModeLiquidationBonus:
               parseInt(n.eModeLiquidationBonus.toString().slice(-3)) / 100 +
               "%",
+            borrowableInIsolation: n.borrowableInIsolation ? "True" : "False",
             assetLink:
               "https://app.aave.com/reserve-overview/?underlyingAsset=" +
               n.id.slice(n.id.indexOf("-") + 1, n.id.lastIndexOf("-")) +
