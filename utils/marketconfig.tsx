@@ -10,11 +10,12 @@ import {
   AaveV2Ethereum,
   AaveV2EthereumAMM,
   AaveV2Polygon,
+  AaveV3Metis,
+  AaveV3Base,
 } from "@bgd-labs/aave-address-book";
 import { ChainId } from "@aave/contract-helpers";
 
 export const marketConfig = {
-  // NOTE: Ethereum & Polygon & Optimism use API
   ethereum: {
     chainId: ChainId.mainnet,
     publicJsonRPCUrl: "https://eth-mainnet.alchemyapi.io/v2/demo",
@@ -52,7 +53,7 @@ export const marketConfig = {
   },
   optimism: {
     chainId: ChainId.optimism,
-    publicJsonRPCUrl: "https://mainnet.optimism.io",
+    publicJsonRPCUrl: "https://optimism-mainnet.public.blastapi.io",
     LENDING_POOL_ADDRESS_PROVIDER: AaveV3Optimism.POOL_ADDRESSES_PROVIDER,
     UI_POOL_DATA_PROVIDER: AaveV3Optimism.UI_POOL_DATA_PROVIDER,
     marketName: "proto_optimism_v3",
@@ -91,5 +92,19 @@ export const marketConfig = {
     LENDING_POOL_ADDRESS_PROVIDER: AaveV3Fantom.POOL_ADDRESSES_PROVIDER,
     UI_POOL_DATA_PROVIDER: AaveV3Fantom.UI_POOL_DATA_PROVIDER,
     marketName: "proto_fantom_v3",
+  },
+  metis: {
+    chainId: ChainId.metis_andromeda,
+    publicJsonRPCUrl: "https://andromeda.metis.io/?owner=1088",
+    LENDING_POOL_ADDRESS_PROVIDER: AaveV3Metis.POOL_ADDRESSES_PROVIDER,
+    UI_POOL_DATA_PROVIDER: AaveV3Metis.UI_POOL_DATA_PROVIDER,
+    marketName: "proto_metis_v3",
+  },
+  base: {
+    chainId: ChainId.base,
+    publicJsonRPCUrl: "https://base-mainnet.public.blastapi.io",
+    LENDING_POOL_ADDRESS_PROVIDER: AaveV3Base.POOL_ADDRESSES_PROVIDER,
+    UI_POOL_DATA_PROVIDER: AaveV3Base.UI_POOL_DATA_PROVIDER,
+    marketName: "proto_base_v3",
   },
 };

@@ -48,6 +48,14 @@ export const markets = {
       name: "polygon",
       config: marketConfig.polygonv3,
     },
+    {
+      name: "metis",
+      config: marketConfig.metis,
+    },
+    {
+      name: "base",
+      config: marketConfig.base,
+    },
   ],
   benqi: [
     {
