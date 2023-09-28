@@ -95,9 +95,9 @@ export default async function handler(
                 100
               ).toFixed(2) + "%",
           isIsolated: n.debtCeiling === "0" ? "False" : "True",
-          debtCeiling: n.debtCeiling === "0" ? "N/A" : (parseInt(n.debtCeiling) / 10 ** 8).toFixed(2) + "M",
-          supplyCap: n.supplyCap === "0" ? "N/A" : (parseInt(n.supplyCap) / 10 ** 9).toFixed(3) + "B",
-          borrowCap: n.borrowCap === "0" ? "N/A" : (parseInt(n.borrowCap) / 10 ** 9).toFixed(3) + "B",
+          debtCeiling: n.debtCeiling === "0" ? "N/A" : (parseInt(n.debtCeiling) / 10 ** 8).toFixed(3) + "M",
+          supplyCap: n.supplyCap === "0" ? "N/A" : (parseInt(n.supplyCap) / 10 ** 9).toFixed(4) + "B",
+          borrowCap: n.borrowCap === "0" ? "N/A" : (parseInt(n.borrowCap) / 10 ** 9).toFixed(4) + "B",
           eModeLtv: n.eModeLtv / 100 + "%",
           eModeLiquidationThereshold: n.eModeLiquidationThreshold / 100 + "%",
           eModeLiquidationBonus:
