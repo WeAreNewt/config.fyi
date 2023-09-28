@@ -2,17 +2,17 @@
 # yarn lockfile v1
 
 
-"@aave/contract-helpers@^1.18.2":
-  version "1.18.2"
-  resolved "https://registry.yarnpkg.com/@aave/contract-helpers/-/contract-helpers-1.18.2.tgz#1c614ae9498f2bb30fa09932d364dbf3548f7e39"
-  integrity sha512-xzVUkOEyLJl/UmztJyGoHVtjnkc3+0eZc3fvpncvfl6QLK+JLFGFNCPaXdLCaBzh1FXZX8m/pSprMZteCIWs4g==
+"@aave/contract-helpers@^1.20.0":
+  version "1.20.0"
+  resolved "https://registry.yarnpkg.com/@aave/contract-helpers/-/contract-helpers-1.20.0.tgz#4ff6afb540402ff2ffef3b08cbcc80a688b627d1"
+  integrity sha512-LrHswh/g1fyTpZ4fKHO2jdGjDe/2ligz47xZp/b23IS+b2eXxvTqOtPvDyyAXyYvcmK6Ce3zYYAUk2jaMOGoNg==
   dependencies:
     isomorphic-unfetch "^3.1.0"
 
-"@aave/math-utils@^1.18.2":
-  version "1.18.2"
-  resolved "https://registry.yarnpkg.com/@aave/math-utils/-/math-utils-1.18.2.tgz#0027d10a764c77f0f822ac945af2486e7ce62d21"
-  integrity sha512-nR3saK+lCVhsWgx8leoBvcvJHSAdo7syb26xQCUQHz8DOfDX2pkiK+s+Io3mwJbPr+zLMPpeWxSHIg8pcEym2Q==
+"@aave/math-utils@^1.20.0":
+  version "1.20.0"
+  resolved "https://registry.yarnpkg.com/@aave/math-utils/-/math-utils-1.20.0.tgz#735f38c8150e8a603490d73d2db59864d5515dd6"
+  integrity sha512-s6o2x1Gx1aqA+w0Hk8KzKsdqBA2A/iT7WGNkIAelfyxLJol2JC3Ap6tzDTlEny2zzLIfl+vpQjdWhabFMgqv4Q==
 
 "@babel/code-frame@^7.0.0":
   version "7.18.6"
@@ -83,10 +83,10 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
-"@bgd-labs/aave-address-book@^1.30.0":
-  version "1.30.0"
-  resolved "https://registry.yarnpkg.com/@bgd-labs/aave-address-book/-/aave-address-book-1.30.0.tgz#bb42a507725bb17b4ebbafcde1cd8cf742983d3e"
-  integrity sha512-/GTb1Xh0698/H67GJkocplzzYChv4YBMwj8mVJTkIh2B9KhRFHqZ0sl9uwNYfMqx1wCZPulfs4p4SeyCM+TsIg==
+"@bgd-labs/aave-address-book@^2.4.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@bgd-labs/aave-address-book/-/aave-address-book-2.5.0.tgz#bda008b65b87b21c7a5940861d5ccf0b7285a282"
+  integrity sha512-YCTJVlWvmnaYUNgrOqhB0UZw+uJ6Y3qguwr5l8ul10auajM1/gzzK1Wt+qkc8Ih7ccuoGcqqUyfQj5DKE31IZA==
 
 "@emotion/babel-plugin@^11.10.0":
   version "11.10.2"
