@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { Contract, ethers } from "ethers";
-import { Pool, UiPoolDataProvider } from "@aave/contract-helpers";
+import { UiPoolDataProvider } from "@aave/contract-helpers";
 import { formatReserves } from "@aave/math-utils";
 import dayjs from "dayjs";
 
