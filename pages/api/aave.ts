@@ -14,6 +14,7 @@ const chainIdToRPCProvider: Record<number, string> = {
   1666600000: "https://api.harmony.one",
   1088: "https://andromeda.metis.io/?owner=1088",
   8453: "https://base-mainnet.public.blastapi.io",
+  100: "https://gnosis-mainnet.public.blastapi.io",
 };
 
 type configInterface = {
@@ -71,6 +72,8 @@ export default async function handler(
       config.protocol === "v3"
         ? {
           symbol: n.symbol,
+          frozen: n.isFrozen ? "True" : "False",
+          paused: n.isPaused ? "True" : "False",
           canCollateral: n.usageAsCollateralEnabled ? "True" : "False",
           LTV: parseInt(n.baseLTVasCollateral) / 100 + "%",
           liqThereshold: parseInt(n.reserveLiquidationThreshold) / 100 + "%",
@@ -112,6 +115,8 @@ export default async function handler(
         }
         : {
           symbol: n.symbol,
+          frozen: n.isFrozen ? "True" : "False",
+          paused: n.isPaused ? "True" : "False",
           canCollateral: n.usageAsCollateralEnabled ? "True" : "False",
           LTV: parseInt(n.baseLTVasCollateral) / 100 + "%",
           liqThereshold: parseInt(n.reserveLiquidationThreshold) / 100 + "%",

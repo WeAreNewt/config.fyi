@@ -56,6 +56,10 @@ export const markets = {
       name: "base",
       config: marketConfig.base,
     },
+    {
+      name: "gnosis",
+      config: marketConfig.gnosis,
+    },
   ],
   benqi: [
     {
