@@ -22,6 +22,7 @@ export const marketConfig = {
     publicJsonRPCUrl: "https://eth-mainnet.alchemyapi.io/v2/demo",
     LENDING_POOL_ADDRESS_PROVIDER: AaveV2Ethereum.POOL_ADDRESSES_PROVIDER,
     UI_POOL_DATA_PROVIDER: AaveV2Ethereum.UI_POOL_DATA_PROVIDER,
+    POOL: AaveV2Ethereum.POOL,
     marketName: "proto_mainnet",
   },
   avalanche: {
@@ -29,6 +30,7 @@ export const marketConfig = {
     publicJsonRPCUrl: "https://api.avax.network/ext/bc/C/rpc",
     LENDING_POOL_ADDRESS_PROVIDER: AaveV2Avalanche.POOL_ADDRESSES_PROVIDER,
     UI_POOL_DATA_PROVIDER: AaveV2Avalanche.UI_POOL_DATA_PROVIDER,
+    POOL: AaveV2Avalanche.POOL,
     marketName: "proto_avalanche",
   },
   polygon: {
@@ -36,6 +38,7 @@ export const marketConfig = {
     publicJsonRPCUrl: "https://polygon-rpc.com",
     LENDING_POOL_ADDRESS_PROVIDER: AaveV2Polygon.POOL_ADDRESSES_PROVIDER,
     UI_POOL_DATA_PROVIDER: AaveV2Polygon.UI_POOL_DATA_PROVIDER,
+    POOL: AaveV2Polygon.POOL,
     marketName: "proto_polygon",
   },
   ethamm: {
@@ -43,6 +46,7 @@ export const marketConfig = {
     publicJsonRPCUrl: "https://eth-mainnet.alchemyapi.io/v2/demo",
     LENDING_POOL_ADDRESS_PROVIDER: AaveV2EthereumAMM.POOL_ADDRESSES_PROVIDER,
     UI_POOL_DATA_PROVIDER: AaveV2EthereumAMM.UI_POOL_DATA_PROVIDER,
+    POOL: AaveV2EthereumAMM.POOL,
     marketName: "amm_mainnet",
   },
   arbitrum: {

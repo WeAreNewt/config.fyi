@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { ethers } from "ethers";
+import { Contract, ethers } from "ethers";
 import { UiPoolDataProvider } from "@aave/contract-helpers";
 import { formatReserves } from "@aave/math-utils";
 import dayjs from "dayjs";
@@ -23,6 +23,7 @@ type configInterface = {
   protocol: string;
   lendingPoolAddressProvider: string;
   uiDataProvider: string;
+  pool: string;
 };
 
 export default async function handler(
@@ -35,6 +36,7 @@ export default async function handler(
     protocol: req.query.protocol as string,
     lendingPoolAddressProvider: req.query.lendingPoolAddressProvider as string,
     uiDataProvider: req.query.uiDataProvider as string,
+    pool: req.query.pool as string,
   };
 
   const currentTimestamp = dayjs().unix();
@@ -54,6 +56,15 @@ export default async function handler(
       provider,
       chainId,
     });
+
+    let paused = false;
+    if (config.protocol === "v2") {
+      const abi = [
+        "function paused() public view returns (bool)"]
+      const poolContract = new Contract(config.pool, abi, provider);
+      paused = await poolContract.paused();
+    }
+
 
     const reserves = await poolDataProviderContract.getReservesHumanized({
       lendingPoolAddressProvider,
@@ -116,7 +127,7 @@ export default async function handler(
         : {
           symbol: n.symbol,
           frozen: n.isFrozen ? "True" : "False",
-          paused: n.isPaused ? "True" : "False",
+          paused: paused ? "True" : "False",
           canCollateral: n.usageAsCollateralEnabled ? "True" : "False",
           LTV: parseInt(n.baseLTVasCollateral) / 100 + "%",
           liqThereshold: parseInt(n.reserveLiquidationThreshold) / 100 + "%",
