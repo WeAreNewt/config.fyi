@@ -12,6 +12,7 @@ import {
   AaveV2Polygon,
   AaveV3Metis,
   AaveV3Base,
+  AaveV3Gnosis,
 } from "@bgd-labs/aave-address-book";
 import { ChainId } from "@aave/contract-helpers";
 
@@ -106,5 +107,12 @@ export const marketConfig = {
     LENDING_POOL_ADDRESS_PROVIDER: AaveV3Base.POOL_ADDRESSES_PROVIDER,
     UI_POOL_DATA_PROVIDER: AaveV3Base.UI_POOL_DATA_PROVIDER,
     marketName: "proto_base_v3",
+  },
+  gnosis: {
+    chainId: 100,
+    publicJsonRPCUrl: "https://gnosis-mainnet.public.blastapi.io",
+    LENDING_POOL_ADDRESS_PROVIDER: AaveV3Gnosis.POOL_ADDRESSES_PROVIDER,
+    UI_POOL_DATA_PROVIDER: AaveV3Gnosis.UI_POOL_DATA_PROVIDER,
+    marketName: "proto_gnosis_v3",
   },
 };
