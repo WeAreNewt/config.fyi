@@ -13,6 +13,8 @@ import {
   AaveV3Metis,
   AaveV3Base,
   AaveV3Gnosis,
+  AaveV3BNB,
+  AaveV3Scroll,
 } from "@bgd-labs/aave-address-book";
 import { ChainId } from "@aave/contract-helpers";
 
@@ -118,5 +120,19 @@ export const marketConfig = {
     LENDING_POOL_ADDRESS_PROVIDER: AaveV3Gnosis.POOL_ADDRESSES_PROVIDER,
     UI_POOL_DATA_PROVIDER: AaveV3Gnosis.UI_POOL_DATA_PROVIDER,
     marketName: "proto_gnosis_v3",
+  },
+  bnb: {
+    chainId: 56,
+    publicJsonRPCUrl: "https://bsc-mainnet.public.blastapi.io",
+    LENDING_POOL_ADDRESS_PROVIDER: AaveV3BNB.POOL_ADDRESSES_PROVIDER,
+    UI_POOL_DATA_PROVIDER: AaveV3BNB.UI_POOL_DATA_PROVIDER,
+    marketName: "proto_bnb_v3",
+  },
+  scroll: {
+    chainId: 534352,
+    publicJsonRPCUrl: "https://scroll-mainnet.public.blastapi.io",
+    LENDING_POOL_ADDRESS_PROVIDER: AaveV3Scroll.POOL_ADDRESSES_PROVIDER,
+    UI_POOL_DATA_PROVIDER: AaveV3Scroll.UI_POOL_DATA_PROVIDER,
+    marketName: "proto_scroll_v3",
   },
 };

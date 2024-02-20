@@ -39,6 +39,7 @@ export const headers = {
     "emode liq thereshold",
     "emode liq bonus",
     "borrowable in iso mode",
+    "flashloan enabled",
     "",
   ],
   benqi: [

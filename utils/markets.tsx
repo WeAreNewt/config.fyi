@@ -60,6 +60,14 @@ export const markets = {
       name: "gnosis",
       config: marketConfig.gnosis,
     },
+    {
+      name: "bnb",
+      config: marketConfig.bnb,
+    },
+    {
+      name: "scroll",
+      config: marketConfig.scroll,
+    },
   ],
   benqi: [
     {

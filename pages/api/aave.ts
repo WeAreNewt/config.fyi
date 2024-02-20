@@ -15,6 +15,8 @@ const chainIdToRPCProvider: Record<number, string> = {
   1088: "https://andromeda.metis.io/?owner=1088",
   8453: "https://base-mainnet.public.blastapi.io",
   100: "https://gnosis-mainnet.public.blastapi.io",
+  56: "https://bsc-mainnet.public.blastapi.io",
+  534352: "https://scroll-mainnet.public.blastapi.io",
 };
 
 type configInterface = {
@@ -118,6 +120,7 @@ export default async function handler(
             parseInt(n.eModeLiquidationBonus.toString().slice(-3)) / 100 +
             "%",
           borrowableInIsolation: n.borrowableInIsolation ? "True" : "False",
+          flashloanEnabled: n.flashLoanEnabled ? "True" : "False",
           assetLink:
             "https://app.aave.com/reserve-overview/?underlyingAsset=" +
             n.id.slice(n.id.indexOf("-") + 1, n.id.lastIndexOf("-")) +
