@@ -96,6 +96,7 @@ export default async function handler(
           optimalUtilization:
             ((parseInt(n.optimalUsageRatio) / 10 ** 27) * 100).toFixed(0) +
             "%",
+          supplyRate: (parseFloat(n.supplyAPY) * 100).toFixed(2) + "%",
           varBorrowRate:
             (parseFloat(n.variableBorrowAPY) * 100).toFixed(2) + "%",
           canBorrowStable: n.stableBorrowRateEnabled ? "True" : "False",
@@ -140,6 +141,7 @@ export default async function handler(
           optimalUtilization:
             ((parseInt(n.optimalUsageRatio) / 10 ** 27) * 100).toFixed(0) +
             "%",
+          supplyRate: (parseFloat(n.supplyAPY) * 100).toFixed(2) + "%",
           varBorrowRate:
             (parseFloat(n.variableBorrowAPY) * 100).toFixed(2) + "%",
           canBorrowStable: n.stableBorrowRateEnabled ? "True" : "False",
