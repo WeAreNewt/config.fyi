@@ -9,6 +9,7 @@ interface Aavev2 {
   reserveFactor: string;
   canBorrow: string;
   optimalUtilization: string;
+  supplyRate: string;
   varBorrowRate: string;
   canBorrowStable: string;
   stableBorrowRate: string;
@@ -27,6 +28,7 @@ interface Aavev3 {
   reserveFactor: string;
   canBorrow: string;
   optimalUtilization: string;
+  supplyRate: string;
   varBorrowRate: string;
   canBorrowStable: string;
   stableBorrowRate: string;
