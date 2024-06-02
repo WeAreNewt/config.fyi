@@ -16,6 +16,7 @@ import { assetType } from "../utils/interfaces";
 
 import aaveService from "../services/aave";
 import benqiService from "../services/benqi";
+import zerolendService from "../services/zerolend";
 
 const Home: NextPage = () => {
   const [tableData, setTableData] = useState<assetType[] | undefined>([]);
@@ -53,6 +54,7 @@ const Home: NextPage = () => {
     if (event.target.value === "v2") setMarket(markets.v2);
     if (event.target.value === "v3") setMarket(markets.v3);
     if (event.target.value == "benqi") setMarket(markets.benqi);
+    if (event.target.value == "zerolend") setMarket(markets.zerolend);
     if (event.target.value === "univ3") {
       setMarket(markets.univ3);
       setMissingProtocol(true);
@@ -87,6 +89,14 @@ const Home: NextPage = () => {
         );
         benqiService(mkt.config).then((data) => {
           console.log(data);
+          setTableData(data);
+          setMarketLoading(false);
+        });
+      } else if (protocol === "zerolend") {
+        const mkt = market?.find(
+          (n: { name: string }) => n.name === event.target.value
+        );
+        zerolendService(mkt.config, protocol).then((data) => {
           setTableData(data);
           setMarketLoading(false);
         });
