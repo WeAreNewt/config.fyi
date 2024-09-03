@@ -15,6 +15,7 @@ import {
   AaveV3Gnosis,
   AaveV3BNB,
   AaveV3Scroll,
+  AaveV3EthereumLido,
 } from "@bgd-labs/aave-address-book";
 import { ChainId } from "@aave/contract-helpers";
 
@@ -134,5 +135,13 @@ export const marketConfig = {
     LENDING_POOL_ADDRESS_PROVIDER: AaveV3Scroll.POOL_ADDRESSES_PROVIDER,
     UI_POOL_DATA_PROVIDER: AaveV3Scroll.UI_POOL_DATA_PROVIDER,
     marketName: "proto_scroll_v3",
+  },
+  ethereumLido: {
+    chainId: ChainId.mainnet,
+    publicJsonRPCUrl: "https://eth-mainnet.alchemyapi.io/v2/demo",
+    LENDING_POOL_ADDRESS_PROVIDER: AaveV3EthereumLido.POOL_ADDRESSES_PROVIDER,
+    UI_POOL_DATA_PROVIDER: AaveV3EthereumLido.UI_POOL_DATA_PROVIDER,
+    POOL: AaveV3EthereumLido.POOL,
+    marketName: "proto_lido_v3",
   },
 };
