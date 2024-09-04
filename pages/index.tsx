@@ -30,9 +30,9 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     setMarket(markets.v3);
-    setSelectedMarket("ethereum");
+    setSelectedMarket("ethereum main");
     const ethereum: any = markets.v3.find(
-      (n: { name: string }) => n.name === "ethereum"
+      (n: { name: string }) => n.name === "ethereum main"
     );
 
     aaveService(ethereum.config, protocol).then((data) => {

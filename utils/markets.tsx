@@ -21,8 +21,12 @@ export const markets = {
   ],
   v3: [
     {
-      name: "ethereum",
+      name: "ethereum main",
       config: marketConfig.ethereumv3,
+    },
+    {
+      name: "ethereum lido",
+      config: marketConfig.ethereumLido,
     },
     {
       name: "arbitrum",
