@@ -1,4 +1,5 @@
 import { marketConfig } from "../utils/marketconfig";
+import { marketConfigZerolend } from "./marketconfig_zerolend";
 
 export const markets = {
   v2: [
@@ -71,6 +72,28 @@ export const markets = {
     {
       name: "scroll",
       config: marketConfig.scroll,
+    },
+  ],
+  zerolend: [
+    {
+      name: "ethereum",
+      config: marketConfigZerolend.ethereum,
+    },
+    {
+      name: "zksync",
+      config: marketConfigZerolend.zksync,
+    },
+    {
+      name: "manta",
+      config: marketConfigZerolend.manta,
+    },
+    {
+      name: "linea",
+      config: marketConfigZerolend.linea,
+    },
+    {
+      name: "blast",
+      config: marketConfigZerolend.blast,
     },
   ],
   benqi: [
