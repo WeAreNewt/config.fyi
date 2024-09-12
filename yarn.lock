@@ -83,10 +83,10 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
-"@bgd-labs/aave-address-book@^3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@bgd-labs/aave-address-book/-/aave-address-book-3.2.1.tgz#9ecdb92303170e754e048d25f7d6cd27312c530b"
-  integrity sha512-IlXHWYAhcgbiteTU50I6v8Awl7PBAHfXGz2IyjR5MPXy4xvW4UXYKbCRUtOCFxY/sdLtu/Gb+GgypyF76sd4Qg==
+"@bgd-labs/aave-address-book@^3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@bgd-labs/aave-address-book/-/aave-address-book-3.3.0.tgz#2358a8a6edb317968f555d1779b3d8d540bcb205"
+  integrity sha512-mRpf7TNNV8FL2kDxlHFtsrnK5oAFlPM+PYtc6MdrmI961qrWseV/kHWc5Tbg1b4AGqRKD5S8U6samADxnkwJvg==
 
 "@emotion/babel-plugin@^11.10.0":
   version "11.10.2"

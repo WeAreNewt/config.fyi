@@ -29,6 +29,10 @@ export const markets = {
       config: marketConfig.ethereumLido,
     },
     {
+      name: "ethereum etherfi",
+      config: marketConfig.ethereumEtherFi,
+    },
+    {
       name: "arbitrum",
       config: marketConfig.arbitrum,
     },
