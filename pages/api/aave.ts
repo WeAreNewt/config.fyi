@@ -89,7 +89,7 @@ export default async function handler(
           paused: n.isPaused ? "True" : "False",
           canCollateral: n.usageAsCollateralEnabled ? "True" : "False",
           LTV: parseInt(n.baseLTVasCollateral) / 100 + "%",
-          liqThereshold: parseInt(n.reserveLiquidationThreshold) / 100 + "%",
+          liqThreshold: parseInt(n.reserveLiquidationThreshold) / 100 + "%",
           liqBonus: parseInt(n.reserveLiquidationBonus.slice(-3)) / 100 + "%",
           reserveFactor: parseFloat(n.reserveFactor) * 100 + "%",
           canBorrow: n.borrowingEnabled ? "True" : "False",
@@ -116,7 +116,7 @@ export default async function handler(
           supplyCap: n.supplyCap === "0" ? "N/A" : (parseInt(n.supplyCap) / 10 ** 9).toFixed(4) + "B",
           borrowCap: n.borrowCap === "0" ? "N/A" : (parseInt(n.borrowCap) / 10 ** 9).toFixed(4) + "B",
           eModeLtv: n.eModeLtv / 100 + "%",
-          eModeLiquidationThereshold: n.eModeLiquidationThreshold / 100 + "%",
+          eModeLiquidationThreshold: n.eModeLiquidationThreshold / 100 + "%",
           eModeLiquidationBonus:
             parseInt(n.eModeLiquidationBonus.toString().slice(-3)) / 100 +
             "%",
@@ -134,7 +134,7 @@ export default async function handler(
           paused: paused ? "True" : "False",
           canCollateral: n.usageAsCollateralEnabled ? "True" : "False",
           LTV: parseInt(n.baseLTVasCollateral) / 100 + "%",
-          liqThereshold: parseInt(n.reserveLiquidationThreshold) / 100 + "%",
+          liqThreshold: parseInt(n.reserveLiquidationThreshold) / 100 + "%",
           liqBonus: parseInt(n.reserveLiquidationBonus.slice(-3)) / 100 + "%",
           reserveFactor: parseFloat(n.reserveFactor) * 100 + "%",
           canBorrow: n.borrowingEnabled ? "True" : "False",
