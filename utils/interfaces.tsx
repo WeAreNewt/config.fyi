@@ -4,7 +4,7 @@ interface Aavev2 {
   paused: string;
   canCollateral: string;
   LTV: string;
-  liqThereshold: string;
+  liqThreshold: string;
   liqBonus: string;
   reserveFactor: string;
   canBorrow: string;
@@ -23,7 +23,7 @@ interface Aavev3 {
   paused: string;
   canCollateral: string;
   LTV: string;
-  liqThereshold: string;
+  liqThreshold: string;
   liqBonus: string;
   reserveFactor: string;
   canBorrow: string;
@@ -37,7 +37,7 @@ interface Aavev3 {
   supplyCap: string;
   borrowCap: string;
   eModeLtv: string;
-  eModeLiquidationThereshold: string;
+  eModeLiquidationThreshold: string;
   eModeLiquidationBonus: string;
   assetLink: string;
 }
