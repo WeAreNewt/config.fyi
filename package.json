@@ -11,7 +11,7 @@
   "dependencies": {
     "@aave/contract-helpers": "^1.29.1",
     "@aave/math-utils": "^1.29.1",
-    "@bgd-labs/aave-address-book": "^3.3.0",
+    "@bgd-labs/aave-address-book": "^3.4.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.8.0",

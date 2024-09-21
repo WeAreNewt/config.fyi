@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 const chainIdToRPCProvider: Record<number, string> = {
   1: "https://eth-mainnet.alchemyapi.io/v2/demo",
   137: "https://polygon-rpc.com",
+  324: "https://mainnet.era.zksync.io",
   43114: "https://api.avax.network/ext/bc/C/rpc",
   42161: "https://arb1.arbitrum.io/rpc",
   250: "https://rpc.ftm.tools",
