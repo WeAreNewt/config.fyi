@@ -76,6 +76,10 @@ export const markets = {
       name: "scroll",
       config: marketConfig.scroll,
     },
+    {
+      name: "zksync era",
+      config: marketConfig.zksyncEra,
+    },
   ],
   benqi: [
     {

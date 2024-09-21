@@ -17,6 +17,7 @@ import {
   AaveV3Scroll,
   AaveV3EthereumLido,
   AaveV3EthereumEtherFi,
+  AaveV3ZkSync,
 } from "@bgd-labs/aave-address-book";
 import { ChainId } from "@aave/contract-helpers";
 
@@ -87,6 +88,13 @@ export const marketConfig = {
     LENDING_POOL_ADDRESS_PROVIDER: AaveV3Ethereum.POOL_ADDRESSES_PROVIDER,
     UI_POOL_DATA_PROVIDER: AaveV3Ethereum.UI_POOL_DATA_PROVIDER,
     marketName: "proto_mainnet_v3",
+  },
+  zksyncEra: {
+    chainId: ChainId.zksync,
+    publicJsonRPCUrl: "https://mainnet.era.zksync.io",
+    LENDING_POOL_ADDRESS_PROVIDER: AaveV3ZkSync.POOL_ADDRESSES_PROVIDER,
+    UI_POOL_DATA_PROVIDER: AaveV3ZkSync.UI_POOL_DATA_PROVIDER,
+    marketName: "proto_zksync_v3",
   },
   harmony: {
     chainId: ChainId.harmony,
